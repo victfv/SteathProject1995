@@ -1,0 +1,125 @@
+{
+	"connections": [
+		{
+			"from": "shape",
+			"from_port": 0,
+			"to": "emboss_2",
+			"to_port": 0
+		},
+		{
+			"from": "emboss_2",
+			"from_port": 0,
+			"to": "blend",
+			"to_port": 0
+		},
+		{
+			"from": "perlin",
+			"from_port": 0,
+			"to": "blend",
+			"to_port": 1
+		},
+		{
+			"from": "blend",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 0
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "@@1106",
+	"node_position": {
+		"x": 0,
+		"y": 0
+	},
+	"nodes": [
+		{
+			"export_paths": {
+				"Godot": "C:/Users/victf/Desktop/GODOT/Projects/32BitJam/Materials/Vent/VentIterior"
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 154,
+				"y": 0
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1,
+					"b": 1,
+					"g": 1,
+					"r": 1,
+					"type": "Color"
+				},
+				"ao": 1,
+				"depth_scale": 0.5,
+				"emission_energy": 1,
+				"flags_transparent": false,
+				"metallic": 0,
+				"normal": 1,
+				"roughness": 1,
+				"size": 7,
+				"sss": 0
+			},
+			"type": "material"
+		},
+		{
+			"name": "shape",
+			"node_position": {
+				"x": -673,
+				"y": 20
+			},
+			"parameters": {
+				"edge": 1,
+				"radius": 1,
+				"shape": 1,
+				"sides": 4
+			},
+			"type": "shape"
+		},
+		{
+			"name": "emboss_2",
+			"node_position": {
+				"x": -432,
+				"y": 61
+			},
+			"parameters": {
+				"param0": 8,
+				"param1": 0,
+				"param2": 2.3,
+				"param3": 1
+			},
+			"type": "emboss"
+		},
+		{
+			"name": "perlin",
+			"node_position": {
+				"x": -458,
+				"y": 203
+			},
+			"parameters": {
+				"iterations": 7,
+				"persistence": 0.75,
+				"scale_x": 9,
+				"scale_y": 9
+			},
+			"type": "perlin"
+		},
+		{
+			"name": "blend",
+			"node_position": {
+				"x": -166,
+				"y": 110
+			},
+			"parameters": {
+				"amount": 0.8,
+				"blend_type": 0
+			},
+			"type": "blend"
+		}
+	],
+	"parameters": {
+
+	},
+	"shortdesc": "",
+	"type": "graph"
+}

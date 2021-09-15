@@ -1,0 +1,30 @@
+features
+|
+|-stealth
+|	|- light level
+|	|- enemies
+|	|	|- cameras
+|	|	|- patroling enemies*
+|	|	|- traps
+|	|		|- lasers
+|	|		|- mines
+|	|		|- heat sensors
+|	|
+|	|- alarm
+|
+|- tools
+|	|- electromagnetic sensors
+|	|- tranq dart*
+|	|- electrifying dart
+|	|- decryptor
+|	
+|- objectives
+|	|- intall listening devices
+|	|- scan documents
+|	|- photograph events
+|
+|- failure states
+	|- alarm
+	|- health*
+
+*depends on if we have enough time
