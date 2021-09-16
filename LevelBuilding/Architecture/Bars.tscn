@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="OpenSimplexNoise" id=6]
+seed = 5
+octaves = 5
+period = 14.6
+persistence = 1.0
+lacunarity = 2.7
+
+[sub_resource type="NoiseTexture" id=7]
+flags = 3
+width = 64
+height = 64
+seamless = true
+noise = SubResource( 6 )
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_texture = SubResource( 7 )
+uv1_scale = Vector3( 0.2, 0.2, 0.2 )
+uv1_triplanar = true
+
+[node name="Bars" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5383, 2.46288, -0.291298 )
+
+[node name="Bar" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5 )
+material_override = SubResource( 8 )
+use_in_baked_light = true
+use_collision = true
+width = 0.2
+height = 4.0
+depth = 0.2
+
+[node name="Bar1" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
+material_override = SubResource( 8 )
+use_in_baked_light = true
+use_collision = true
+width = 0.2
+height = 4.0
+depth = 0.2
+
+[node name="Bar2" type="CSGBox" parent="."]
+material_override = SubResource( 8 )
+use_in_baked_light = true
+use_collision = true
+width = 0.2
+height = 4.0
+depth = 0.2
+
+[node name="Bar3" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5 )
+material_override = SubResource( 8 )
+use_in_baked_light = true
+use_collision = true
+width = 0.2
+height = 4.0
+depth = 0.2
+
+[node name="Bar4" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
+material_override = SubResource( 8 )
+use_in_baked_light = true
+use_collision = true
+width = 0.2
+height = 4.0
+depth = 0.2
