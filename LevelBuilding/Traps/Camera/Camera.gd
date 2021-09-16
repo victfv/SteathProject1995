@@ -3,7 +3,9 @@ extends Spatial
 var timer = 0.0
 var tracking = false
 var playerInArea = false
-var scoutAngle = 60
+var stop = false
+var scoutAngle = 80
+var rot = 0
 onready var player = MasterScript.player
 var suspicionLevel = 0.0
 
@@ -13,29 +15,33 @@ const minR = PI/2
 const maxR = PI + PI/2
 
 func _physics_process(delta):
-	if playerInArea:
-		if (player.camY.global_transform.origin - global_transform.origin).normalized().dot($CamY/CameraMesh.global_transform.basis.z) > 0.92:
-			var res = dss.intersect_ray(global_transform.origin, player.camY.global_transform.origin, [], 3)
-			if res.has("collider") and res.collider == player:
-				tracking = true
-				$CamY/CameraMesh/Light.material_override.emission = Color.red
-			else:
-				$CamY/CameraMesh/Light.material_override.emission = Color.green
+	$LookDummy.look_at(player.global_transform.origin, Vector3.UP)
+	$Label.text = str(PI - $LookDummy.rotation.y)
+	if !stop:
+		if !tracking:
+			timer += delta
+			if timer >= PI*2:
+				timer = 0
+			rot = cos(timer) * deg2rad(scoutAngle)
+			$CamY.rotation.y = rot
 		else:
-			$CamY/CameraMesh/Light.material_override.emission = Color.green
-	
-	if !tracking:
-		timer += delta
-		$CamY.rotation.y = sin(timer) * deg2rad(scoutAngle) + PI
+			#$LookDummy.look_at(player.global_transform.origin, Vector3.UP)
+			$CamY.rotation.y = lerp_angle($CamY.rotation.y, clamp($LookDummy.rotation.y - PI, -deg2rad(scoutAngle), deg2rad(scoutAngle)), delta * 6)
+			#timer = acos(deg2rad(scoutAngle)/$CamY.rotation.y)
+
+
+func _on_TrackTimer_timeout():
+	#timer = $CamY.rotation.y/(PI)
+	stop = false
+
+
+func _on_Vision_seesPlayer(sees):
+	if sees:
+		tracking = true
+		stop = false
 	else:
-		$LookDummy.look_at(player.global_transform.origin, Vector3.UP)
-		$CamY.rotation.y = lerp_angle($CamY.rotation.y, clamp($LookDummy.rotation.y + PI, minR, maxR), delta * 3)
-
-
-func _on_DetectionArea_body_entered(body):
-	playerInArea = true
-	print ("see player")
-
-
-func _on_DetectionArea_body_exited(body):
-	playerInArea = false
+		if tracking:
+			stop = true
+			$Timers/TrackTimer.start(2)
+			tracking = false
+	#print ("see :" + str(sees))

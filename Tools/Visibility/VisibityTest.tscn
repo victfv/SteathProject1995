@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Tools/Visibility/VisibityTest.gd" type="Script" id=1]
+[ext_resource path="res://Tools/Visibility/Angle.gd" type="Script" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_unshaded = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CylinderMesh" id=1]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.5
+radial_segments = 16
+
+[sub_resource type="CylinderMesh" id=2]
+top_radius = 0.0
+bottom_radius = 0.127
+height = 0.3
+radial_segments = 16
+
+[sub_resource type="CylinderMesh" id=4]
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.6
+
+[node name="Vision" type="Area"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "Add a collision shape to activate the viewer"
+}
+visionConeHalfAngle = 30
+
+[node name="Arrow" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.23806 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Arrow"]
+material_override = SubResource( 3 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Arrow"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.364581, 0 )
+material_override = SubResource( 3 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Angle" type="Spatial" parent="Arrow"]
+transform = Transform( 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0, -0.249154, 1.08909e-08 )
+script = ExtResource( 2 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="Arrow/Angle"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.301092, -1.31611e-08 )
+mesh = SubResource( 4 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[connection signal="body_entered" from="." to="." method="_on_Vision_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Vision_body_exited"]
