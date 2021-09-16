@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/laserScript.gd" type="Script" id=1]
+[ext_resource path="res://Materials/Test/GlowingRed.tres" type="Material" id=2]
+
+[node name="Laser" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10348, 0.453652, -3.10355 )
+script = ExtResource( 1 )
+
+[node name="RayCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0146221, 0.284801, -0.00562572 )
+enabled = true
+cast_to = Vector3( 0, 22, 0 )
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.23278, 0 )
+
+[node name="LaserBeam" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 0.031, 0, 0, 0, 0.031, 0, 0, 0, 0.031, 0.000252604, 6.49279, -0.00165486 )
+cast_shadow = 0
+height = 1000.0
+material = ExtResource( 2 )
+
+[node name="BeamMask" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.9962, 0 )
+operation = 2
+width = 0.1
+height = 0.01
+depth = 0.1
+
+[node name="LaserBase" type="CSGBox" parent="."]
+transform = Transform( 0.0552397, 0, 0, 0, 0.108041, 0, 0, 0, 0.0552397, 0, 0.149551, 0 )
