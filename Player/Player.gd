@@ -23,6 +23,9 @@ onready var camY = $CamY
 #Misc
 onready var dss = get_world().direct_space_state #Direct space state, for programatically tracing rays and shapes
 
+#Gameplay
+var visibilityLevel = 0.5
+
 func _enter_tree():
 	MasterScript.player = self
 
