@@ -15,19 +15,22 @@ const minR = PI/2
 const maxR = PI + PI/2
 
 func _physics_process(delta):
-	$LookDummy.look_at(player.global_transform.origin, Vector3.UP)
-	$Label.text = str(PI - $LookDummy.rotation.y)
+	#$Label.text = str(suspicionLevel)
 	if !stop:
 		if !tracking:
 			timer += delta
-			if timer >= PI*2:
-				timer = 0
 			rot = cos(timer) * deg2rad(scoutAngle)
+			suspicionLevel = clamp(suspicionLevel - delta * 0.2, 0, 1)
 			$CamY.rotation.y = rot
 		else:
-			#$LookDummy.look_at(player.global_transform.origin, Vector3.UP)
-			$CamY.rotation.y = lerp_angle($CamY.rotation.y, clamp($LookDummy.rotation.y - PI, -deg2rad(scoutAngle), deg2rad(scoutAngle)), delta * 6)
-			#timer = acos(deg2rad(scoutAngle)/$CamY.rotation.y)
+			var dist = 1/max((player.camY.global_transform.origin - global_transform.origin).length()/2, 0.001)
+			$Label.text = str(dist)
+			$LookDummy.look_at(player.global_transform.origin, Vector3.UP)
+			suspicionLevel = clamp(suspicionLevel + delta * 0.8 * dist * player.visibilityLevel, 0, 1)
+			$CamY.rotation.y = lerp_angle($CamY.rotation.y, clamp($LookDummy.rotation.y - PI * sign($LookDummy.rotation.y), -deg2rad(scoutAngle), deg2rad(scoutAngle)), delta * 6)
+			timer = acos($CamY.rotation.y/(deg2rad(scoutAngle)))
+	
+	$CamY/CameraMesh/Light.material_override.emission = lerp(Color.green, Color.red, suspicionLevel)
 
 
 func _on_TrackTimer_timeout():
@@ -35,8 +38,9 @@ func _on_TrackTimer_timeout():
 	stop = false
 
 
-func _on_Vision_seesPlayer(sees):
-	if sees:
+func _on_Vision_seesPlayer(sees, strength):
+	print(strength)
+	if sees and strength > 0.15:
 		tracking = true
 		stop = false
 	else:
