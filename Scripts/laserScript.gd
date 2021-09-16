@@ -13,6 +13,5 @@ func _process(_delta):
 	
 	if object != null:
 		laser_mask.height = hitpoint.distance_to(laser_mask.global_transform.origin) * 2
-		print("F")
 	else:
 		laser_mask.height = 0.01
