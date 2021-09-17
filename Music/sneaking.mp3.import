@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/sneaking.mp3-dbd74b5ac2f82222b5b2d43d34868903.mp3str"
+
+[deps]
+
+source_file="res://Music/sneaking.mp3"
+dest_files=[ "res://.import/sneaking.mp3-dbd74b5ac2f82222b5b2d43d34868903.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

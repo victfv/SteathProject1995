@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/TranqGunScript.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.381343
@@ -83,6 +84,7 @@ radius = 0.381343
 height = 0.47
 
 [node name="Player" type="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00337374, 0.00248778, 0.00365704 )
 collision_layer = 2
 script = ExtResource( 1 )
 
@@ -96,6 +98,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0 )
 [node name="InteractionCast" type="RayCast" parent="CamY/CamX/Camera"]
 enabled = true
 cast_to = Vector3( 0, 0, -1.8 )
+
+[node name="TranqGunWIP" type="Spatial" parent="CamY/CamX/Camera"]
+script = ExtResource( 2 )
+speed = -200
+
+[node name="Body" type="CSGBox" parent="CamY/CamX/Camera/TranqGunWIP"]
+transform = Transform( 0.0365288, 0, 0, 0, 0.0365288, 0, 0, 0, 0.126269, 0.465883, -0.377412, -0.573542 )
+
+[node name="SpawnPoint" type="Spatial" parent="CamY/CamX/Camera/TranqGunWIP/Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5368 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )

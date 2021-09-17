@@ -60,6 +60,10 @@ func _input(event):
 	
 	if event is InputEventMouseMotion: # If the input even is mouse motion
 		mouseLook(event) # Call mouse look and pass the event
+		
+	#Quit game on exit key pressed
+	if Input.is_action_pressed("exit"):
+		get_tree().quit()
 
 func crouchToggle():
 	if crouching: # If player is crouching
