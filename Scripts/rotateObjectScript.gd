@@ -5,5 +5,5 @@ extends CSGBox
 export var rotSpeed = 0.01
 
 
-func _process(delta):
+func _process(_delta):
 	rotate_y(rotSpeed)
