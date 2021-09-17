@@ -23,10 +23,10 @@ func _physics_process(delta):
 			suspicionLevel = clamp(suspicionLevel - delta * 0.2, 0, 1)
 			$CamY.rotation.y = rot
 		else:
-			var dist = 1/max((player.camY.global_transform.origin - global_transform.origin).length()/2, 0.001)
+			var dist = $CamY/CameraMesh/Vision.visibilityStrength
 			$Label.text = str(dist)
 			$LookDummy.look_at(player.global_transform.origin, Vector3.UP)
-			suspicionLevel = clamp(suspicionLevel + delta * 0.8 * dist * player.visibilityLevel, 0, 1)
+			suspicionLevel = clamp(suspicionLevel + delta * 2 * dist * player.visibilityLevel, 0, 1)
 			$CamY.rotation.y = lerp_angle($CamY.rotation.y, clamp($LookDummy.rotation.y - PI * sign($LookDummy.rotation.y), -deg2rad(scoutAngle), deg2rad(scoutAngle)), delta * 6)
 			timer = acos($CamY.rotation.y/(deg2rad(scoutAngle)))
 	

@@ -48,7 +48,7 @@ func _input(event):
 	if Input.is_action_just_pressed("CROUCH"):
 		crouchToggle()
 	
-	lean = Input.get_action_strength("LEANR") - Input.get_action_strength("LEANL")
+	lean = Input.get_action_strength("LEANR") - Input.get_action_strength("LEANL") # Takes input for leaning
 	
 	#Interaction
 	if Input.is_action_just_pressed("INTERACT"):
@@ -58,12 +58,30 @@ func _input(event):
 			if col.has_method("interacted"): # If the intersected object has the interacted method
 				col.interacted(self) # Call interacted on the object passing self
 	
+	if Input.is_action_just_pressed("PRIMARY"):
+		callPrimary(true)
+	if Input.is_action_just_released("PRIMARY"):
+		callPrimary(false)
+	
+	if Input.is_action_just_pressed("SECONDARY"):
+		callSecondary(true)
+	if Input.is_action_just_released("SECONDARY"):
+		callSecondary(false)
+	
 	if event is InputEventMouseMotion: # If the input even is mouse motion
 		mouseLook(event) # Call mouse look and pass the event
 		
 	#Quit game on exit key pressed
-	if Input.is_action_pressed("exit"):
+	if Input.is_action_pressed("QUIT"):
 		get_tree().quit()
+
+func callPrimary(state):
+	if $CamY/CamX/Camera/Equipped.get_child_count() > 0 and $CamY/CamX/Camera/Equipped.get_child(0).has_method("primary"):
+			$CamY/CamX/Camera/Equipped.get_child(0).primary(state)
+
+func callSecondary(state):
+	if $CamY/CamX/Camera/Equipped.get_child_count() > 0 and $CamY/CamX/Camera/Equipped.get_child(0).has_method("secondary"):
+			$CamY/CamX/Camera/Equipped.get_child(0).secondary(state)
 
 func crouchToggle():
 	if crouching: # If player is crouching
@@ -113,17 +131,17 @@ func _physics_process(delta):
 	snapVector = -get_floor_normal() # Sets the floor snap vector to negative of the floor normal
 
 func lean(delta):
-	$CamY/CamX/Camera.transform.origin.x = lerp($CamY/CamX/Camera.transform.origin.x, lean * 0.3, delta * 6)
+	$CamY/CamX/Camera.transform.origin.x = lerp($CamY/CamX/Camera.transform.origin.x, lean * 0.3, delta * 6) # Lerps camera between lean positions
 
 func calculateVisibility():
 	visibilityLevel = 0
-	for i in range(lights.size()):
+	for i in range(lights.size()): # Calculates light level and occlusion for each light
 		var res = dss.intersect_ray(lights[i].global_transform.origin, camY.global_transform.origin, [], 3)
 		if res.has("collider") and res.collider == self:
 			visibilityLevel += range_lerp((lights[i].global_transform.origin - camY.global_transform.origin).length(), 0, lights[i].lightRange, 1, 0)
 	if crouching:
-		visibilityLevel *= 0.85
-	visibilityLevel = clamp(visibilityLevel, 0, 1)
+		visibilityLevel *= 0.85 # Applies crouching modifier
+	visibilityLevel = clamp(visibilityLevel, 0, 1) # Clamps visibility level to 0 to 1 range
 
 func jump():
 	if willJump and movementMode == 1: # If will jump and is on floor
@@ -168,8 +186,8 @@ func _on_AnimationPlayer_animation_finished(anim_name): # Called when an animati
 	if anim_name == "Crouch": # If crouch animation finished, call crouchFinish
 		crouchFinish()
 
-func addLight(light):
+func addLight(light): # Adds light to light list
 	lights.append(light)
 
-func removeLight(light):
+func removeLight(light): # Removes light from light list
 	lights.erase(light)
