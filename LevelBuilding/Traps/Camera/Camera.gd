@@ -40,7 +40,7 @@ func _on_TrackTimer_timeout():
 
 func _on_Vision_seesPlayer(sees, strength):
 	print(strength)
-	if sees and strength > 0.15:
+	if sees:
 		tracking = true
 		stop = false
 	else:

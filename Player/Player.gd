@@ -2,6 +2,7 @@ extends KinematicBody
 
 #controls
 var fbrl = Vector2() # fbrl = forwards, backwards, left, right. Used to save movement input
+var lean = 0 # Lean weight
 var willJump = false #If character should jump on the next physics loop
 var movementMode = 0 # 0 = character falling, 1 = character on ground, 2 = swimming (if we implement swimming at all)
 var snapVector = Vector3.DOWN # Points towards the ground, for snapping to it
@@ -24,7 +25,8 @@ onready var camY = $CamY
 onready var dss = get_world().direct_space_state #Direct space state, for programatically tracing rays and shapes
 
 #Gameplay
-var visibilityLevel = 0.5
+var lights = []
+var visibilityLevel = 0.0
 
 func _enter_tree():
 	MasterScript.player = self
@@ -45,6 +47,8 @@ func _input(event):
 	# Calls crouch when you press crouch
 	if Input.is_action_just_pressed("CROUCH"):
 		crouchToggle()
+	
+	lean = Input.get_action_strength("LEANR") - Input.get_action_strength("LEANL")
 	
 	#Interaction
 	if Input.is_action_just_pressed("INTERACT"):
@@ -90,14 +94,32 @@ func mouseLook(event):
 	$CamY/CamX.rotation.x = clamp($CamY/CamX.rotation.x - event.relative.y * mouseSensitivity, -lookLimit, lookLimit) # Rotates CamX in accordance to mouse y axis movement
 
 func _physics_process(delta):
+	
+	$Label.text = "Vis level = " + str(visibilityLevel)
+	
 	mMode()
 	hMovement(delta)
 	vMovement(delta)
 	jump()
+	calculateVisibility()
+	lean(delta)
 	
 	velocity = move_and_slide_with_snap(velocity, snapVector, Vector3.UP, false, 4, PI/4, false) # Sets velocity to the result of move and slide with snap
 	#snapVector = Vector3.DOWN
 	snapVector = -get_floor_normal() # Sets the floor snap vector to negative of the floor normal
+
+func lean(delta):
+	$CamY/CamX/Camera.transform.origin.x = lerp($CamY/CamX/Camera.transform.origin.x, lean * 0.3, delta * 6)
+
+func calculateVisibility():
+	visibilityLevel = 0
+	for i in range(lights.size()):
+		var res = dss.intersect_ray(lights[i].global_transform.origin, camY.global_transform.origin, [], 3)
+		if res.has("collider") and res.collider == self:
+			visibilityLevel += range_lerp((lights[i].global_transform.origin - camY.global_transform.origin).length(), 0, lights[i].lightRange, 1, 0)
+	if crouching:
+		visibilityLevel *= 0.85
+	visibilityLevel = clamp(visibilityLevel, 0, 1)
 
 func jump():
 	if willJump and movementMode == 1: # If will jump and is on floor
@@ -138,7 +160,12 @@ func vMovement(delta):
 		2:
 			pass
 
-
 func _on_AnimationPlayer_animation_finished(anim_name): # Called when an animation finishes
 	if anim_name == "Crouch": # If crouch animation finished, call crouchFinish
 		crouchFinish()
+
+func addLight(light):
+	lights.append(light)
+
+func removeLight(light):
+	lights.erase(light)
