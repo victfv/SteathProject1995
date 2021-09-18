@@ -7,7 +7,7 @@ export var lightAngle = 45 setget updAngle
 export var color = Color.white setget updColor
 export var shadows = false setget updShadow
 
-var playerInSpot = false
+var playerInSpot = false # Variable that makes it so signal is emited only once player enters/leaves spot
 
 func setState(state):
 	if state:
@@ -41,7 +41,7 @@ func _ready():
 func _physics_process(_delta):
 	if !Engine.editor_hint:
 		var dot = (global_transform.origin - MasterScript.player.camY.global_transform.origin).normalized().dot(global_transform.basis.z.normalized())
-		if acos(dot) < deg2rad(lightAngle):
+		if acos(dot) < deg2rad(lightAngle): # Tests if player is in spotlight
 			if !playerInSpot:
 				playerInSpot = true
 				MasterScript.player.addLight(self)

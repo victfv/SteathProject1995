@@ -99,14 +99,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -1.8 )
 
-[node name="TranqGunWIP" type="Spatial" parent="CamY/CamX/Camera"]
+[node name="Equipped" type="Spatial" parent="CamY/CamX/Camera"]
+
+[node name="TranqGunWIP" type="Spatial" parent="CamY/CamX/Camera/Equipped"]
 script = ExtResource( 2 )
 speed = -200
 
-[node name="Body" type="CSGBox" parent="CamY/CamX/Camera/TranqGunWIP"]
+[node name="Body" type="CSGBox" parent="CamY/CamX/Camera/Equipped/TranqGunWIP"]
 transform = Transform( 0.0365288, 0, 0, 0, 0.0365288, 0, 0, 0, 0.126269, 0.465883, -0.377412, -0.573542 )
 
-[node name="SpawnPoint" type="Spatial" parent="CamY/CamX/Camera/TranqGunWIP/Body"]
+[node name="SpawnPoint" type="Spatial" parent="CamY/CamX/Camera/Equipped/TranqGunWIP/Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5368 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

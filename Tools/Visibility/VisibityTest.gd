@@ -33,16 +33,19 @@ func _ready():
 func _physics_process(_delta):
 	if !Engine.editor_hint and enabled:
 		$Label.text = str(visibilityStrength)
+		# Dot product between player and light's z vector
 		var dot = (MasterScript.player.camY.global_transform.origin - global_transform.origin).normalized().dot(global_transform.basis.z.normalized())
+		# Compares angles and test if the visibility level is not 0
 		if acos(dot) < deg2rad(visionConeHalfAngle) and MasterScript.player.visibilityLevel > 0:
+			# Test occlusion for the player
 			var res = dss.intersect_ray(global_transform.origin, MasterScript.player.camY.global_transform.origin, [], 3, true, false)
 			calculateVisibilityStength()
 			if res.has("collider") and res.collider == MasterScript.player:
 				if !canSeePlayer:
-					if visibilityStrength > visibilityThreshold:
+					if visibilityStrength > visibilityThreshold: # Only sends signal that player is visible if player's visibility is bigger than threshold
 						canSeePlayer = true
 						emit_signal("seesPlayer", canSeePlayer, visibilityStrength)
-				else:
+				else: # If it's not, sends signal that player is not visible
 					if visibilityStrength < visibilityThreshold:
 						canSeePlayer = false
 						emit_signal("seesPlayer", canSeePlayer, visibilityStrength)
@@ -56,10 +59,10 @@ func _physics_process(_delta):
 				emit_signal("seesPlayer", canSeePlayer, visibilityStrength)
 
 func calculateVisibilityStength():
-	var vis = (MasterScript.player.camY.global_transform.origin - global_transform.origin).length()
-	vis = range_lerp(clamp(vis,0,visibilityRange), 0, visibilityRange, 1, 0)
-	var vissq = pow(vis,2)
-	visibilityStrength = vissq * MasterScript.player.visibilityLevel
+	var vis = (MasterScript.player.camY.global_transform.origin - global_transform.origin).length() #Player's distance from light
+	vis = range_lerp(clamp(vis,0,visibilityRange), 0, visibilityRange, 1, 0)# Remaps distance to 0 to 1 range
+	var vissq = pow(vis,2) # Makes vis exponential
+	visibilityStrength = vissq * MasterScript.player.visibilityLevel # Multiplies by visibility level
 
 func _on_Vision_body_entered(_body):
 	set_physics_process(true)
