@@ -132,6 +132,7 @@ func _physics_process(delta):
 
 func lean(delta):
 	$CamY/CamX/Camera.transform.origin.x = lerp($CamY/CamX/Camera.transform.origin.x, lean * 0.3, delta * 6) # Lerps camera between lean positions
+	$CamY/CamX/Camera.rotation.z = lerp($CamY/CamX/Camera.rotation.z, -lean * 0.2, delta * 6)
 
 func calculateVisibility():
 	visibilityLevel = 0
