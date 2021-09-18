@@ -6,7 +6,7 @@ export var speed = 50
 
 var bullet_scn = preload("res://Bullet.tscn")
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("useGadget"):
 		var new_bullet = bullet_scn.instance()
 		get_tree().get_root().add_child(new_bullet)
