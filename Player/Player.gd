@@ -58,6 +58,11 @@ func _input(event):
 			if col.has_method("interacted"): # If the intersected object has the interacted method
 				col.interacted(self) # Call interacted on the object passing self
 	
+	if Input.is_action_just_pressed("JOURNAL"):
+		Journal.visible = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		get_tree().paused = true
+	
 	if Input.is_action_just_pressed("PRIMARY"):
 		callPrimary(true)
 	if Input.is_action_just_released("PRIMARY"):

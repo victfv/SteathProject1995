@@ -1,0 +1,122 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Fonts/Streetwear.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://UI/Journal/DocReader.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=12]
+size = 10
+extra_spacing_space = 1
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Theme" id=6]
+Button/colors/font_color = Color( 0, 0, 0, 1 )
+Button/colors/font_color_hover = Color( 0.215686, 0.298039, 0.423529, 1 )
+Button/fonts/font = SubResource( 12 )
+Button/styles/disabled = SubResource( 13 )
+Button/styles/focus = SubResource( 14 )
+Button/styles/hover = SubResource( 15 )
+Button/styles/normal = SubResource( 14 )
+Button/styles/pressed = SubResource( 14 )
+Label/colors/font_color = Color( 0, 0, 0, 1 )
+Label/fonts/font = SubResource( 12 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 12
+extra_spacing_space = 1
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Theme" id=5]
+Button/colors/font_color = Color( 0, 0, 0, 1 )
+Button/colors/font_color_hover = Color( 0.215686, 0.298039, 0.423529, 1 )
+Button/fonts/font = SubResource( 1 )
+Button/styles/disabled = SubResource( 2 )
+Button/styles/focus = SubResource( 3 )
+Button/styles/hover = SubResource( 4 )
+Button/styles/normal = SubResource( 3 )
+Button/styles/pressed = SubResource( 3 )
+Label/colors/font_color = Color( 0, 0, 0, 1 )
+Label/fonts/font = SubResource( 1 )
+
+[node name="DocReader" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -128.0
+margin_bottom = -49.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_right = 128.0
+margin_bottom = 11.0
+custom_constants/margin_right = 80
+
+[node name="ButtonReturn" type="Button" parent="VBoxContainer/MarginContainer"]
+margin_right = 48.0
+margin_bottom = 11.0
+theme = SubResource( 6 )
+text = "Return"
+align = 0
+
+[node name="DocName" type="Label" parent="VBoxContainer"]
+margin_top = 15.0
+margin_right = 128.0
+margin_bottom = 27.0
+theme = SubResource( 5 )
+text = "Doc Name"
+align = 1
+valign = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+margin_top = 31.0
+margin_right = 128.0
+margin_bottom = 175.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DocText" type="Label" parent="VBoxContainer/ScrollContainer"]
+margin_right = 128.0
+margin_bottom = 11.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+theme = SubResource( 6 )
+text = "Doc text here"
+align = 1
+valign = 1
+autowrap = true
+
+[connection signal="pressed" from="VBoxContainer/MarginContainer/ButtonReturn" to="." method="_on_ButtonReturn_pressed"]

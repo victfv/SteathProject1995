@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://UI/Journal/Document.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/Streetwear.otf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=12]
+size = 10
+extra_spacing_space = 1
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Theme" id=6]
+Button/colors/font_color = Color( 0, 0, 0, 1 )
+Button/colors/font_color_hover = Color( 0.215686, 0.298039, 0.423529, 1 )
+Button/fonts/font = SubResource( 12 )
+Button/styles/disabled = SubResource( 13 )
+Button/styles/focus = SubResource( 14 )
+Button/styles/hover = SubResource( 15 )
+Button/styles/normal = SubResource( 14 )
+Button/styles/pressed = SubResource( 14 )
+Label/colors/font_color = Color( 0, 0, 0, 1 )
+Label/fonts/font = SubResource( 12 )
+
+[node name="Document" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -206.0
+rect_min_size = Vector2( 0, 18 )
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 0, 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="CenterContainer"]
+margin_left = 93.0
+margin_top = 3.0
+margin_right = 162.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+theme = SubResource( 6 )
+text = "Note Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="CenterContainer/Button" to="." method="_on_Button_pressed"]
