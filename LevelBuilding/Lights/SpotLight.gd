@@ -38,7 +38,7 @@ func updAngle(a):
 func _ready():
 	set_physics_process(false)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !Engine.editor_hint:
 		var dot = (global_transform.origin - MasterScript.player.camY.global_transform.origin).normalized().dot(global_transform.basis.z.normalized())
 		if acos(dot) < deg2rad(lightAngle): # Tests if player is in spotlight
@@ -50,10 +50,10 @@ func _physics_process(delta):
 				playerInSpot = false
 				MasterScript.player.removeLight(self)
 
-func _on_Area_body_entered(body):
+func _on_Area_body_entered(_body):
 	set_physics_process(true)
 
-func _on_Area_body_exited(body):
+func _on_Area_body_exited(_body):
 	MasterScript.player.removeLight(self)
 	playerInSpot = false
 	set_physics_process(false)

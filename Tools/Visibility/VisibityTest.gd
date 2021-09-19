@@ -30,7 +30,7 @@ func _ready():
 	if !Engine.editor_hint:
 		$Arrow.visible = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !Engine.editor_hint and enabled:
 		$Label.text = str(visibilityStrength)
 		# Dot product between player and light's z vector
@@ -64,11 +64,11 @@ func calculateVisibilityStength():
 	var vissq = pow(vis,2) # Makes vis exponential
 	visibilityStrength = vissq * MasterScript.player.visibilityLevel # Multiplies by visibility level
 
-func _on_Vision_body_entered(body):
+func _on_Vision_body_entered(_body):
 	set_physics_process(true)
 
 
-func _on_Vision_body_exited(body):
+func _on_Vision_body_exited(_body):
 	set_physics_process(false)
 	canSeePlayer = false
 	emit_signal("seesPlayer", canSeePlayer, 0)
