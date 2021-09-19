@@ -4,20 +4,30 @@ extends Spatial
 
 export var staticCamera = false
 export var fov = 30 setget updfov
+export var detectionRange = 20 setget updRange
 
 var timer = 0.0
 var tracking = false
 var playerInArea = false
 var stop = false
-var scoutAngle = 80
+export var scoutAngle = 80
 var rot = 0
 onready var player = MasterScript.player
 var suspicionLevel = 0.0
 
 onready var dss = get_world().direct_space_state
 
-const minR = PI/2
-const maxR = PI + PI/2
+const idle = preload("res://SFX/Camera/camera_idle.wav")
+const alert = preload("res://SFX/Camera/camera_alert.wav")
+
+func updRange(a):
+	detectionRange = a
+	$CamY/CameraMesh/Vision.visibilityRange = detectionRange
+	$range.scale = Vector3(detectionRange,detectionRange,detectionRange)
+
+func _ready():
+	if !Engine.editor_hint:
+		$range.queue_free()
 
 func updfov(a):
 	fov = a
@@ -49,11 +59,14 @@ func _physics_process(delta):
 
 func _on_TrackTimer_timeout():
 	#timer = $CamY.rotation.y/(PI)
+	$CamSounds.stream = idle
+	$CamSounds.play()
 	stop = false
 
 
 func _on_Vision_seesPlayer(sees, strength):
-	print(strength)
+	$CamSounds.stream = alert
+	$CamSounds.play()
 	if sees:
 		tracking = true
 		stop = false
@@ -62,4 +75,6 @@ func _on_Vision_seesPlayer(sees, strength):
 			stop = true
 			$Timers/TrackTimer.start(2)
 			tracking = false
-	#print ("see :" + str(sees))
+		else:
+			$CamSounds.stream = idle
+			$CamSounds.play()

@@ -29,17 +29,20 @@ Button/styles/pressed = SubResource( 3 )
 Label/colors/font_color = Color( 0, 0, 0, 1 )
 Label/fonts/font = ExtResource( 2 )
 
-[node name="Journal" type="Control"]
+[node name="Journal" type="CanvasLayer"]
+layer = 10
+script = ExtResource( 5 )
+
+[node name="Journal" type="Control" parent="."]
 pause_mode = 2
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="Journal"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 1 )
@@ -49,7 +52,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
+[node name="MarginContainer" type="MarginContainer" parent="Journal/TextureRect"]
 anchor_left = 0.25
 anchor_top = 0.165
 anchor_right = 0.75
@@ -66,7 +69,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Menu" type="MarginContainer" parent="TextureRect/MarginContainer"]
+[node name="Menu" type="MarginContainer" parent="Journal/TextureRect/MarginContainer"]
 margin_left = 2.0
 margin_top = 5.0
 margin_right = 253.0
@@ -77,7 +80,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer/Menu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Journal/TextureRect/MarginContainer/Menu"]
 margin_left = 20.0
 margin_right = 231.0
 margin_bottom = 342.0
@@ -86,17 +89,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer" type="Control" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
+[node name="Spacer" type="Control" parent="Journal/TextureRect/MarginContainer/Menu/VBoxContainer"]
 margin_right = 211.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 
-[node name="CenterContainer" type="CenterContainer" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Journal/TextureRect/MarginContainer/Menu/VBoxContainer"]
 margin_top = 14.0
 margin_right = 211.0
 margin_bottom = 48.0
 
-[node name="ButtonObjectives" type="Button" parent="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer"]
+[node name="ButtonObjectives" type="Button" parent="Journal/TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer"]
 margin_left = 49.0
 margin_right = 162.0
 margin_bottom = 34.0
@@ -105,18 +108,18 @@ size_flags_horizontal = 0
 theme = SubResource( 5 )
 text = "Objectives"
 
-[node name="Spacer2" type="Control" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
+[node name="Spacer2" type="Control" parent="Journal/TextureRect/MarginContainer/Menu/VBoxContainer"]
 margin_top = 52.0
 margin_right = 211.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 0, 10 )
 
-[node name="CenterContainer2" type="CenterContainer" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="Journal/TextureRect/MarginContainer/Menu/VBoxContainer"]
 margin_top = 66.0
 margin_right = 211.0
 margin_bottom = 100.0
 
-[node name="ButtonDocs" type="Button" parent="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer2"]
+[node name="ButtonDocs" type="Button" parent="Journal/TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer2"]
 margin_left = 48.0
 margin_right = 163.0
 margin_bottom = 34.0
@@ -125,18 +128,18 @@ size_flags_horizontal = 3
 theme = SubResource( 5 )
 text = "Documents"
 
-[node name="Spacer3" type="Control" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
+[node name="Spacer3" type="Control" parent="Journal/TextureRect/MarginContainer/Menu/VBoxContainer"]
 margin_top = 104.0
 margin_right = 211.0
 margin_bottom = 114.0
 rect_min_size = Vector2( 0, 10 )
 
-[node name="CenterContainer3" type="CenterContainer" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
+[node name="CenterContainer3" type="CenterContainer" parent="Journal/TextureRect/MarginContainer/Menu/VBoxContainer"]
 margin_top = 118.0
 margin_right = 211.0
 margin_bottom = 152.0
 
-[node name="ButtonClose" type="Button" parent="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer3"]
+[node name="ButtonClose" type="Button" parent="Journal/TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer3"]
 margin_left = 79.0
 margin_right = 132.0
 margin_bottom = 34.0
@@ -145,7 +148,7 @@ size_flags_horizontal = 3
 theme = SubResource( 5 )
 text = "Close"
 
-[node name="Documents" parent="TextureRect/MarginContainer" instance=ExtResource( 3 )]
+[node name="Documents" parent="Journal/TextureRect/MarginContainer" instance=ExtResource( 3 )]
 visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -154,7 +157,7 @@ margin_top = 5.0
 margin_right = 253.0
 margin_bottom = 347.0
 
-[node name="Objectives" parent="TextureRect/MarginContainer" instance=ExtResource( 4 )]
+[node name="Objectives" parent="Journal/TextureRect/MarginContainer" instance=ExtResource( 4 )]
 visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -163,8 +166,8 @@ margin_top = 5.0
 margin_right = 253.0
 margin_bottom = 347.0
 
-[connection signal="pressed" from="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer/ButtonObjectives" to="." method="_on_ButtonObjectives_pressed"]
-[connection signal="pressed" from="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer2/ButtonDocs" to="." method="_on_ButtonDocs_pressed"]
-[connection signal="pressed" from="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer3/ButtonClose" to="." method="_on_ButtonClose_pressed"]
-[connection signal="rtrn" from="TextureRect/MarginContainer/Documents" to="." method="_on_Documents_rtrn"]
-[connection signal="rtrn" from="TextureRect/MarginContainer/Objectives" to="." method="_on_Objectives_rtrn"]
+[connection signal="pressed" from="Journal/TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer/ButtonObjectives" to="." method="_on_ButtonObjectives_pressed"]
+[connection signal="pressed" from="Journal/TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer2/ButtonDocs" to="." method="_on_ButtonDocs_pressed"]
+[connection signal="pressed" from="Journal/TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer3/ButtonClose" to="." method="_on_ButtonClose_pressed"]
+[connection signal="rtrn" from="Journal/TextureRect/MarginContainer/Documents" to="." method="_on_Documents_rtrn"]
+[connection signal="rtrn" from="Journal/TextureRect/MarginContainer/Objectives" to="." method="_on_Objectives_rtrn"]

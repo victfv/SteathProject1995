@@ -60,9 +60,8 @@ func _physics_process(_delta):
 
 func calculateVisibilityStength():
 	var vis = (MasterScript.player.camY.global_transform.origin - global_transform.origin).length() #Player's distance from light
-	vis = range_lerp(clamp(vis,0,visibilityRange), 0, visibilityRange, 1, 0)# Remaps distance to 0 to 1 range
-	var vissq = pow(vis,2) # Makes vis exponential
-	visibilityStrength = vissq * MasterScript.player.visibilityLevel # Multiplies by visibility level
+	vis = clamp(vis,0,1)# Clamps distance to 0 to 1 range
+	visibilityStrength = vis * MasterScript.player.visibilityLevel # Multiplies by visibility level
 
 func _on_Vision_body_entered(_body):
 	set_physics_process(true)

@@ -12,7 +12,7 @@ var crouching = false # If the character is currently crouching
 
 #Velocity
 var velocity = Vector3()
-var acceleration = 80
+var acceleration = 60
 var gDamping = 0.22 #Damping for ground movement
 var aDamping = 0.01 #Damping for air movement
 var gravity = -9.8 # Gravity
@@ -59,7 +59,7 @@ func _input(event):
 				col.interacted(self) # Call interacted on the object passing self
 	
 	if Input.is_action_just_pressed("JOURNAL"):
-		Journal.visible = true
+		Journal.open()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		get_tree().paused = true
 	
@@ -144,7 +144,10 @@ func calculateVisibility():
 	for i in range(lights.size()): # Calculates light level and occlusion for each light
 		var res = dss.intersect_ray(lights[i].global_transform.origin, camY.global_transform.origin, [], 3)
 		if res.has("collider") and res.collider == self:
-			visibilityLevel += range_lerp((lights[i].global_transform.origin - camY.global_transform.origin).length(), 0, lights[i].lightRange, 1, 0)
+			if lights[i] is SpotLight:
+				visibilityLevel += range_lerp((lights[i].global_transform.origin - camY.global_transform.origin).length(), 0, lights[i].lightRange, 1, 0) * lights[i].playerSpotFalloff
+			else:
+				visibilityLevel += range_lerp((lights[i].global_transform.origin - camY.global_transform.origin).length(), 0, lights[i].lightRange, 1, 0)
 	if crouching:
 		visibilityLevel *= 0.85 # Applies crouching modifier
 	visibilityLevel = clamp(visibilityLevel, 0, 1) # Clamps visibility level to 0 to 1 range
@@ -175,7 +178,7 @@ func hMovement(delta): # Horizontal movement
 			velocity += acceleration * 0.05 * dir * delta # Allows a mininal amount of movement while on air
 		1: # Character is on ground
 			velocity -= velocity * gDamping # Dampens velocity
-			velocity += acceleration * (int(crouching) * 0.45 + int(!crouching)) * delta * dir # Adds movement acceleration to velocity
+			velocity += acceleration * (int(crouching) * 0.6 + int(!crouching)) * delta * dir # Adds movement acceleration to velocity
 		2:
 			pass
 

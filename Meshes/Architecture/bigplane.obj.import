@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/bigplane.obj-9c6e428ffa502f965bfa7aa0d3b398df.mesh"
+
+[deps]
+
+files=[ "res://.import/bigplane.obj-9c6e428ffa502f965bfa7aa0d3b398df.mesh" ]
+
+source_file="res://Meshes/Architecture/bigplane.obj"
+dest_files=[ "res://.import/bigplane.obj-9c6e428ffa502f965bfa7aa0d3b398df.mesh", "res://.import/bigplane.obj-9c6e428ffa502f965bfa7aa0d3b398df.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
