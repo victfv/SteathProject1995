@@ -31,6 +31,7 @@ Label/fonts/font = ExtResource( 2 )
 
 [node name="Journal" type="Control"]
 pause_mode = 2
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 5 )
@@ -93,52 +94,52 @@ rect_min_size = Vector2( 0, 10 )
 [node name="CenterContainer" type="CenterContainer" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
 margin_top = 14.0
 margin_right = 211.0
-margin_bottom = 32.0
+margin_bottom = 48.0
 
 [node name="ButtonObjectives" type="Button" parent="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer"]
-margin_left = 72.0
-margin_right = 138.0
-margin_bottom = 18.0
+margin_left = 49.0
+margin_right = 162.0
+margin_bottom = 34.0
 rect_min_size = Vector2( 0, 18 )
 size_flags_horizontal = 0
 theme = SubResource( 5 )
 text = "Objectives"
 
 [node name="Spacer2" type="Control" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
-margin_top = 36.0
+margin_top = 52.0
 margin_right = 211.0
-margin_bottom = 46.0
+margin_bottom = 62.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="CenterContainer2" type="CenterContainer" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
-margin_top = 50.0
+margin_top = 66.0
 margin_right = 211.0
-margin_bottom = 68.0
+margin_bottom = 100.0
 
 [node name="ButtonDocs" type="Button" parent="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer2"]
-margin_left = 67.0
-margin_right = 143.0
-margin_bottom = 18.0
+margin_left = 48.0
+margin_right = 163.0
+margin_bottom = 34.0
 rect_min_size = Vector2( 0, 18 )
 size_flags_horizontal = 3
 theme = SubResource( 5 )
 text = "Documents"
 
 [node name="Spacer3" type="Control" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
-margin_top = 72.0
+margin_top = 104.0
 margin_right = 211.0
-margin_bottom = 82.0
+margin_bottom = 114.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="CenterContainer3" type="CenterContainer" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
-margin_top = 86.0
+margin_top = 118.0
 margin_right = 211.0
-margin_bottom = 104.0
+margin_bottom = 152.0
 
 [node name="ButtonClose" type="Button" parent="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer3"]
-margin_left = 90.0
-margin_right = 121.0
-margin_bottom = 18.0
+margin_left = 79.0
+margin_right = 132.0
+margin_bottom = 34.0
 rect_min_size = Vector2( 0, 18 )
 size_flags_horizontal = 3
 theme = SubResource( 5 )
