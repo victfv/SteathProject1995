@@ -11,7 +11,6 @@ func _on_DocReader_rtrn():
 	$DocsContainer.visible = true
 
 func openDoc(docName, docText):
-	print("aaa")
 	$DocReader.openDoc(docName, docText)
 	$DocsContainer.visible = false
 	$DocReader.visible = true

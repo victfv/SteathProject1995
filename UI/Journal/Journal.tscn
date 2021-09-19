@@ -1,15 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Textures/UI/NotePad.png" type="Texture" id=1]
-[ext_resource path="res://Fonts/Streetwear.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://Fonts/BigFont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://UI/Journal/Documents.tscn" type="PackedScene" id=3]
 [ext_resource path="res://UI/Journal/Objectives.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/Journal/Journal.gd" type="Script" id=5]
-
-[sub_resource type="DynamicFont" id=1]
-size = 12
-extra_spacing_space = 1
-font_data = ExtResource( 2 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 
@@ -25,18 +20,17 @@ border_color = Color( 0, 0, 0, 1 )
 [sub_resource type="Theme" id=5]
 Button/colors/font_color = Color( 0, 0, 0, 1 )
 Button/colors/font_color_hover = Color( 0.215686, 0.298039, 0.423529, 1 )
-Button/fonts/font = SubResource( 1 )
+Button/fonts/font = ExtResource( 2 )
 Button/styles/disabled = SubResource( 2 )
 Button/styles/focus = SubResource( 3 )
 Button/styles/hover = SubResource( 4 )
 Button/styles/normal = SubResource( 3 )
 Button/styles/pressed = SubResource( 3 )
 Label/colors/font_color = Color( 0, 0, 0, 1 )
-Label/fonts/font = SubResource( 1 )
+Label/fonts/font = ExtResource( 2 )
 
 [node name="Journal" type="Control"]
 pause_mode = 2
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 5 )
@@ -45,14 +39,8 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -128.0
-margin_top = -112.0
-margin_right = 128.0
-margin_bottom = 112.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
@@ -80,8 +68,8 @@ __meta__ = {
 [node name="Menu" type="MarginContainer" parent="TextureRect/MarginContainer"]
 margin_left = 2.0
 margin_top = 5.0
-margin_right = 125.0
-margin_bottom = 172.0
+margin_right = 253.0
+margin_bottom = 347.0
 custom_constants/margin_right = 20
 custom_constants/margin_left = 20
 __meta__ = {
@@ -90,37 +78,47 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer/Menu"]
 margin_left = 20.0
-margin_right = 103.0
-margin_bottom = 167.0
+margin_right = 231.0
+margin_bottom = 342.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Spacer" type="Control" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
-margin_right = 83.0
+margin_right = 211.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 
-[node name="ButtonObjectives" type="Button" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
 margin_top = 14.0
-margin_right = 83.0
+margin_right = 211.0
 margin_bottom = 32.0
+
+[node name="ButtonObjectives" type="Button" parent="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer"]
+margin_left = 72.0
+margin_right = 138.0
+margin_bottom = 18.0
 rect_min_size = Vector2( 0, 18 )
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 theme = SubResource( 5 )
 text = "Objectives"
 
 [node name="Spacer2" type="Control" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
 margin_top = 36.0
-margin_right = 83.0
+margin_right = 211.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 0, 10 )
 
-[node name="ButtonDocs" type="Button" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
 margin_top = 50.0
-margin_right = 83.0
+margin_right = 211.0
 margin_bottom = 68.0
+
+[node name="ButtonDocs" type="Button" parent="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer2"]
+margin_left = 67.0
+margin_right = 143.0
+margin_bottom = 18.0
 rect_min_size = Vector2( 0, 18 )
 size_flags_horizontal = 3
 theme = SubResource( 5 )
@@ -128,14 +126,19 @@ text = "Documents"
 
 [node name="Spacer3" type="Control" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
 margin_top = 72.0
-margin_right = 83.0
+margin_right = 211.0
 margin_bottom = 82.0
 rect_min_size = Vector2( 0, 10 )
 
-[node name="ButtonClose" type="Button" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
+[node name="CenterContainer3" type="CenterContainer" parent="TextureRect/MarginContainer/Menu/VBoxContainer"]
 margin_top = 86.0
-margin_right = 83.0
+margin_right = 211.0
 margin_bottom = 104.0
+
+[node name="ButtonClose" type="Button" parent="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer3"]
+margin_left = 90.0
+margin_right = 121.0
+margin_bottom = 18.0
 rect_min_size = Vector2( 0, 18 )
 size_flags_horizontal = 3
 theme = SubResource( 5 )
@@ -147,8 +150,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 2.0
 margin_top = 5.0
-margin_right = 125.0
-margin_bottom = 172.0
+margin_right = 253.0
+margin_bottom = 347.0
 
 [node name="Objectives" parent="TextureRect/MarginContainer" instance=ExtResource( 4 )]
 visible = false
@@ -156,11 +159,11 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 2.0
 margin_top = 5.0
-margin_right = 125.0
-margin_bottom = 172.0
+margin_right = 253.0
+margin_bottom = 347.0
 
-[connection signal="pressed" from="TextureRect/MarginContainer/Menu/VBoxContainer/ButtonObjectives" to="." method="_on_ButtonObjectives_pressed"]
-[connection signal="pressed" from="TextureRect/MarginContainer/Menu/VBoxContainer/ButtonDocs" to="." method="_on_ButtonDocs_pressed"]
-[connection signal="pressed" from="TextureRect/MarginContainer/Menu/VBoxContainer/ButtonClose" to="." method="_on_ButtonClose_pressed"]
+[connection signal="pressed" from="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer/ButtonObjectives" to="." method="_on_ButtonObjectives_pressed"]
+[connection signal="pressed" from="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer2/ButtonDocs" to="." method="_on_ButtonDocs_pressed"]
+[connection signal="pressed" from="TextureRect/MarginContainer/Menu/VBoxContainer/CenterContainer3/ButtonClose" to="." method="_on_ButtonClose_pressed"]
 [connection signal="rtrn" from="TextureRect/MarginContainer/Documents" to="." method="_on_Documents_rtrn"]
 [connection signal="rtrn" from="TextureRect/MarginContainer/Objectives" to="." method="_on_Objectives_rtrn"]

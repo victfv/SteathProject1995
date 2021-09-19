@@ -80,14 +80,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="DocsContainer"]
-margin_right = 128.0
+[node name="Return" type="Button" parent="DocsContainer"]
+margin_right = 40.0
 margin_bottom = 11.0
-custom_constants/margin_right = 80
-
-[node name="Return" type="Button" parent="DocsContainer/MarginContainer"]
-margin_right = 48.0
-margin_bottom = 11.0
+size_flags_horizontal = 0
 theme = SubResource( 6 )
 text = "Return"
 
@@ -126,5 +122,5 @@ visible = false
 margin_right = 0.0
 margin_bottom = 0.0
 
-[connection signal="pressed" from="DocsContainer/MarginContainer/Return" to="." method="_on_Return_pressed"]
+[connection signal="pressed" from="DocsContainer/Return" to="." method="_on_Return_pressed"]
 [connection signal="rtrn" from="DocReader" to="." method="_on_DocReader_rtrn"]

@@ -5,7 +5,7 @@ signal rtrn
 
 func openDoc(docName, docText):
 	$VBoxContainer/DocName.text = docName
-	$VBoxContainer/ScrollContainer/DocText.text = docText
+	$VBoxContainer/ScrollContainer/VBoxContainer/DocText.text = docText
 
 
 func _on_ButtonReturn_pressed():
