@@ -24,6 +24,10 @@ onready var camY = $CamY
 #Misc
 onready var dss = get_world().direct_space_state #Direct space state, for programatically tracing rays and shapes
 
+#Interaction
+var interacting = false
+var interactingWith = null
+
 #Gameplay
 var lights = []
 var visibilityLevel = 0.0
@@ -52,11 +56,9 @@ func _input(event):
 	
 	#Interaction
 	if Input.is_action_just_pressed("INTERACT"):
-		var col = $CamY/CamX/Camera/InteractionCast.get_collider() # Gets what interaction ray is intersecting
-		if col != null: # If ray intersects nothing
-			print (col.name) # Prints the name of whatever the ray is colliding
-			if col.has_method("interacted"): # If the intersected object has the interacted method
-				col.interacted(self) # Call interacted on the object passing self
+		interacting = true
+	if Input.is_action_just_released("INTERACT"):
+		interacting = false
 	
 	if Input.is_action_just_pressed("JOURNAL"):
 		Journal.open()
@@ -94,7 +96,26 @@ func mouseLook(event):
 	$CamY.rotate(Vector3.UP, -event.relative.x * mouseSensitivity) # Rotates CamY in accordance to mouse x axis movement
 	$CamY/CamX.rotation.x = clamp($CamY/CamX.rotation.x - event.relative.y * mouseSensitivity, -lookLimit, lookLimit) # Rotates CamX in accordance to mouse y axis movement
 
+func interact():
+	if interacting:
+		var col = $CamY/CamX/Camera/InteractionCast.get_collider()
+		if col != null:
+			if interactingWith == null:
+				if col.has_method("interacted"):
+					interactingWith = col
+					interactingWith.interacted(true)
+			elif col != interactingWith:
+				uninteract()
+		else:
+			uninteract()
+	else:
+		uninteract()
 
+func uninteract():
+	if is_instance_valid(interactingWith):
+		interactingWith.interacted(false)
+	interactingWith = null
+	interacting = false
 
 
 
@@ -136,7 +157,7 @@ func _on_AnimationPlayer_animation_finished(anim_name): # Called when an animati
 
 func _physics_process(delta):
 	
-	$Label.text = "Vis level = " + str(visibilityLevel)
+	#$Label.text = "Vis level = " + str(visibilityLevel)
 	
 	mMode()
 	hMovement(delta)
@@ -145,6 +166,7 @@ func _physics_process(delta):
 	calculateVisibility()
 	leanF(delta)
 	playerLight(delta)
+	interact()
 	
 	velocity = move_and_slide_with_snap(velocity, snapVector, Vector3.UP, false, 4, PI/4, false) # Sets velocity to the result of move and slide with snap
 	#snapVector = Vector3.DOWN
@@ -224,5 +246,5 @@ func playerLight(delta):
 	if visibilityLevel > 0.1:
 		$PlayerGlow.light_energy = lerp($PlayerGlow.light_energy, 0,delta * 0.8)
 	else:
-		$PlayerGlow.light_energy = lerp($PlayerGlow.light_energy, 0.05,delta * 0.06)
+		$PlayerGlow.light_energy = lerp($PlayerGlow.light_energy, 0.05,delta * 0.2)
 
