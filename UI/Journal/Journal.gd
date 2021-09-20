@@ -28,3 +28,10 @@ func _on_Documents_rtrn():
 func _on_Objectives_rtrn():
 	$Journal/TextureRect/MarginContainer/Objectives.visible = false
 	$Journal/TextureRect/MarginContainer/Menu.visible = true
+
+
+func addObjective(objectiveText):
+	$Journal/TextureRect/MarginContainer/Objectives.addObjective(objectiveText)
+
+func addDocument(docName, docText):
+	$Journal/TextureRect/MarginContainer/Documents.addDoc(docName, docText)

@@ -88,6 +88,18 @@ func callSecondary(state):
 	if $CamY/CamX/Camera/Equipped.get_child_count() > 0 and $CamY/CamX/Camera/Equipped.get_child(0).has_method("secondary"):
 			$CamY/CamX/Camera/Equipped.get_child(0).secondary(state)
 
+const lookLimit = PI/2.1 # Look limit is < 90 degrees
+
+func mouseLook(event):
+	$CamY.rotate(Vector3.UP, -event.relative.x * mouseSensitivity) # Rotates CamY in accordance to mouse x axis movement
+	$CamY/CamX.rotation.x = clamp($CamY/CamX.rotation.x - event.relative.y * mouseSensitivity, -lookLimit, lookLimit) # Rotates CamX in accordance to mouse y axis movement
+
+
+
+
+
+
+
 func crouchToggle():
 	if crouching: # If player is crouching
 		#Set up collision test
@@ -114,11 +126,13 @@ func crouchFinish():
 		$CollisionShape.shape.height = 0.94 # Set collision height to full
 		$CollisionShape.transform.origin = Vector3() # Set collisiong to the correct position
 
-const lookLimit = PI/2.1 # Look limit is < 90 degrees
+func _on_AnimationPlayer_animation_finished(anim_name): # Called when an animation finishes
+	if anim_name == "Crouch": # If crouch animation finished, call crouchFinish
+		crouchFinish()
 
-func mouseLook(event):
-	$CamY.rotate(Vector3.UP, -event.relative.x * mouseSensitivity) # Rotates CamY in accordance to mouse x axis movement
-	$CamY/CamX.rotation.x = clamp($CamY/CamX.rotation.x - event.relative.y * mouseSensitivity, -lookLimit, lookLimit) # Rotates CamX in accordance to mouse y axis movement
+
+
+
 
 func _physics_process(delta):
 	
@@ -129,28 +143,20 @@ func _physics_process(delta):
 	vMovement(delta)
 	jump()
 	calculateVisibility()
-	lean(delta)
+	leanF(delta)
+	playerLight(delta)
 	
 	velocity = move_and_slide_with_snap(velocity, snapVector, Vector3.UP, false, 4, PI/4, false) # Sets velocity to the result of move and slide with snap
 	#snapVector = Vector3.DOWN
 	snapVector = -get_floor_normal() # Sets the floor snap vector to negative of the floor normal
 
-func lean(delta):
+
+
+
+
+func leanF(delta):
 	$CamY/CamX/Camera.transform.origin.x = lerp($CamY/CamX/Camera.transform.origin.x, lean * 0.3, delta * 6) # Lerps camera between lean positions
 	$CamY/CamX/Camera.rotation.z = lerp($CamY/CamX/Camera.rotation.z, -lean * 0.2, delta * 6)
-
-func calculateVisibility():
-	visibilityLevel = 0
-	for i in range(lights.size()): # Calculates light level and occlusion for each light
-		var res = dss.intersect_ray(lights[i].global_transform.origin, camY.global_transform.origin, [], 3)
-		if res.has("collider") and res.collider == self:
-			if lights[i] is SpotLight:
-				visibilityLevel += range_lerp((lights[i].global_transform.origin - camY.global_transform.origin).length(), 0, lights[i].lightRange, 1, 0) * lights[i].playerSpotFalloff
-			else:
-				visibilityLevel += range_lerp((lights[i].global_transform.origin - camY.global_transform.origin).length(), 0, lights[i].lightRange, 1, 0)
-	if crouching:
-		visibilityLevel *= 0.85 # Applies crouching modifier
-	visibilityLevel = clamp(visibilityLevel, 0, 1) # Clamps visibility level to 0 to 1 range
 
 func jump():
 	if willJump and movementMode == 1: # If will jump and is on floor
@@ -191,12 +197,32 @@ func vMovement(delta):
 		2:
 			pass
 
-func _on_AnimationPlayer_animation_finished(anim_name): # Called when an animation finishes
-	if anim_name == "Crouch": # If crouch animation finished, call crouchFinish
-		crouchFinish()
+
+
+
+
+func calculateVisibility():
+	visibilityLevel = 0
+	for i in range(lights.size()): # Calculates light level and occlusion for each light
+		var res = dss.intersect_ray(lights[i].global_transform.origin, camY.global_transform.origin, [], 3)
+		if res.has("collider") and res.collider == self:
+			if lights[i] is SpotLight:
+				visibilityLevel += range_lerp((lights[i].global_transform.origin - camY.global_transform.origin).length(), 0, lights[i].lightRange, 1, 0) * lights[i].playerSpotFalloff
+			else:
+				visibilityLevel += range_lerp((lights[i].global_transform.origin - camY.global_transform.origin).length(), 0, lights[i].lightRange, 1, 0)
+	if crouching:
+		visibilityLevel *= 0.85 # Applies crouching modifier
+	visibilityLevel = clamp(visibilityLevel, 0, 1) # Clamps visibility level to 0 to 1 range
 
 func addLight(light): # Adds light to light list
 	lights.append(light)
 
 func removeLight(light): # Removes light from light list
 	lights.erase(light)
+
+func playerLight(delta):
+	if visibilityLevel > 0.1:
+		$PlayerGlow.light_energy = lerp($PlayerGlow.light_energy, 0,delta * 0.8)
+	else:
+		$PlayerGlow.light_energy = lerp($PlayerGlow.light_energy, 0.05,delta * 0.06)
+

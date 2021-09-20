@@ -5,6 +5,7 @@ extends Spatial
 export var staticCamera = false
 export var fov = 30 setget updfov
 export var detectionRange = 20 setget updRange
+export var cameraSpeed = 1.0
 
 var timer = 0.0
 var tracking = false
@@ -24,31 +25,36 @@ func updRange(a):
 	detectionRange = a
 	$CamY/CameraMesh/Vision.visibilityRange = detectionRange
 	$range.scale = Vector3(detectionRange,detectionRange,detectionRange)
+	$CamSounds.max_distance = detectionRange
 
 func _ready():
 	if !Engine.editor_hint:
 		$range.queue_free()
+	updCone()
 
 func updfov(a):
 	fov = a
 	if Engine.editor_hint:
-		var scl = (1/cos(deg2rad(fov)))*sin(deg2rad(fov))
-		$CamY/CameraMesh/ViewConeScaler/ViewCone.scale.x = scl
-		$CamY/CameraMesh/ViewConeScaler/ViewCone.scale.z = scl
 		$CamY/CameraMesh/Vision.visionConeHalfAngle = fov
+		updCone()
+
+func updCone():
+	var scl = (1/cos(deg2rad(fov + 2)))*sin(deg2rad(fov + 2))
+	$CamY/CameraMesh/ViewConeScaler/ViewCone.scale.x = scl
+	$CamY/CameraMesh/ViewConeScaler/ViewCone.scale.z = scl
 
 func _physics_process(delta):
 	if !Engine.editor_hint:
 		if !stop:
 			if !tracking and !staticCamera:
-				timer += delta
+				timer += delta * cameraSpeed
 				rot = cos(timer) * deg2rad(scoutAngle)
 				suspicionLevel = clamp(suspicionLevel - delta * 0.2, 0, 1)
 				$CamY.rotation.y = rot
 			else:
 				var dist = $CamY/CameraMesh/Vision.visibilityStrength
 				$Label.text = str(dist)
-				suspicionLevel = clamp(suspicionLevel + delta * 2 * dist * player.visibilityLevel, 0, 1)
+				suspicionLevel = clamp(suspicionLevel + clamp(delta * 2 * player.visibilityLevel, 0.006, 0.015), 0, 1)
 				if !staticCamera:
 					$LookDummy.look_at(player.global_transform.origin, Vector3.UP)
 					$CamY.rotation.y = lerp_angle($CamY.rotation.y, clamp($LookDummy.rotation.y - PI * sign($LookDummy.rotation.y), -deg2rad(scoutAngle), deg2rad(scoutAngle)), delta * 6)
@@ -64,7 +70,7 @@ func _on_TrackTimer_timeout():
 	stop = false
 
 
-func _on_Vision_seesPlayer(sees, strength):
+func _on_Vision_seesPlayer(sees, _strength):
 	$CamSounds.stream = alert
 	$CamSounds.play()
 	if sees:

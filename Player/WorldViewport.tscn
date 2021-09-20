@@ -63,6 +63,7 @@ render_target_update_mode = 3
 
 [node name="Camera" type="Camera" parent="Viewport"]
 current = true
+far = 50.0
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
