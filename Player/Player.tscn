@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/TranqGunScript.gd" type="Script" id=2]
 [ext_resource path="res://Player/WorldViewport.tscn" type="PackedScene" id=3]
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://SFX/silencedTranq.wav" type="AudioStream" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.381343
@@ -108,6 +109,10 @@ collide_with_areas = true
 [node name="TranqGunWIP" type="Spatial" parent="CamY/CamX/Camera/Equipped"]
 script = ExtResource( 2 )
 speed = -200
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CamY/CamX/Camera/Equipped/TranqGunWIP"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0 )
+stream = ExtResource( 5 )
 
 [node name="Body" type="CSGBox" parent="CamY/CamX/Camera/Equipped/TranqGunWIP"]
 transform = Transform( 0.0365288, 0, 0, 0, 0.0365288, 0, 0, 0, 0.126269, 0.465883, -0.377412, -0.573542 )

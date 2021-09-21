@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/silencedTranq.wav-ebc9df7e4c6a3952926cf259e9671106.sample"
+
+[deps]
+
+source_file="res://SFX/silencedTranq.wav"
+dest_files=[ "res://.import/silencedTranq.wav-ebc9df7e4c6a3952926cf259e9671106.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
