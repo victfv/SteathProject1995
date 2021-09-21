@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/PauseGameScript.gd" type="Script" id=2]
 [ext_resource path="res://Fonts/000webfont.ttf" type="DynamicFontData" id=3]
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=1]
 size = 140
 font_data = ExtResource( 3 )
 
@@ -30,7 +30,7 @@ margin_left = -152.5
 margin_top = 17.8381
 margin_right = 152.5
 margin_bottom = 138.838
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 1 )
 text = "Pause"
 
 [node name="ResumeButton" type="Button" parent="."]

@@ -1,6 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scripts/GuardMovement.gd" type="Script" id=2]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://LevelBuilding/Traps/Mine.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Menus/PauseMenu.tscn" type="PackedScene" id=3]
 
 [sub_resource type="NavigationMesh" id=1]
@@ -14,13 +15,11 @@ data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1
 
 [sub_resource type="CubeMesh" id=4]
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=5]
 albedo_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="ConcavePolygonShape" id=8]
+[sub_resource type="ConcavePolygonShape" id=6]
 data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
-
-[sub_resource type="CapsuleMesh" id=5]
 
 [node name="Node" type="Spatial"]
 
@@ -47,19 +46,16 @@ shape = SubResource( 3 )
 [node name="Floor" type="MeshInstance" parent="Navigation/NavigationMeshInstance"]
 transform = Transform( 106.991, 0, 0, 0, 1, 0, 0, 0, 106.991, 0, 0, 0 )
 mesh = SubResource( 4 )
-material/0 = SubResource( 6 )
+material/0 = SubResource( 5 )
 
 [node name="StaticBody" type="StaticBody" parent="Navigation/NavigationMeshInstance/Floor"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Floor/StaticBody"]
-shape = SubResource( 8 )
+shape = SubResource( 6 )
 
-[node name="Guard" type="KinematicBody" parent="."]
-transform = Transform( 6.01679, 0, 0, 0, -2.63002e-07, 6.01679, 0, -6.01679, -2.63002e-07, -41.7281, 20.0729, 6.88313 )
-script = ExtResource( 2 )
+[node name="Mine" parent="." instance=ExtResource( 2 )]
 
-[node name="MeshInstance" type="MeshInstance" parent="Guard"]
-mesh = SubResource( 5 )
-material/0 = null
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4713, 1.30716, 1.98647 )
 
 [node name="PauseMenu" parent="." instance=ExtResource( 3 )]
