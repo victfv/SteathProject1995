@@ -16,3 +16,4 @@ material/0 = null
 [node name="InteractionArea" parent="." instance=ExtResource( 1 )]
 interactFunction = "interacted"
 collisionExtents = Vector3( 0.12, 0.01, 0.17 )
+description = "Document"
