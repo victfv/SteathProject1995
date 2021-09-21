@@ -9,6 +9,7 @@ var snapVector = Vector3.DOWN # Points towards the ground, for snapping to it
 var inWater = false # If the character is in water
 var mouseSensitivity = 0.01 # Mouse speed multiplier
 var crouching = false # If the character is currently crouching
+var immobilized = false
 
 #Velocity
 var velocity = Vector3()
@@ -20,6 +21,7 @@ var jumpImpulse = 5 #Impulse applied when jumping
 
 #Components
 onready var camY = $CamY
+onready var hud = $HUD
 
 #Misc
 onready var dss = get_world().direct_space_state #Direct space state, for programatically tracing rays and shapes
@@ -39,45 +41,46 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) # Captures mouse in game window
 
 func _input(event):
-	# Uses action strength so that analog movement works
-	fbrl = Vector2(Input.get_action_strength("R") - Input.get_action_strength("L"), Input.get_action_strength("BW") - Input.get_action_strength("FW")).clamped(1)
-	
-	# Jump logic so that holding space will make the character jump continuously
-	if Input.is_action_just_released("JUMP"):
-		willJump = false
-	if Input.is_action_just_pressed("JUMP"):
-		willJump = true
-	
-	# Calls crouch when you press crouch
-	if Input.is_action_just_pressed("CROUCH"):
-		crouchToggle()
-	
-	lean = Input.get_action_strength("LEANR") - Input.get_action_strength("LEANL") # Takes input for leaning
-	
-	#Interaction
-	if Input.is_action_just_pressed("INTERACT"):
-		interacting = true
-	if Input.is_action_just_released("INTERACT"):
-		interacting = false
-	
-	if Input.is_action_just_pressed("JOURNAL"):
-		Journal.open()
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		get_tree().paused = true
-	
-	if Input.is_action_just_pressed("PRIMARY"):
-		callPrimary(true)
-	if Input.is_action_just_released("PRIMARY"):
-		callPrimary(false)
-	
-	if Input.is_action_just_pressed("SECONDARY"):
-		callSecondary(true)
-	if Input.is_action_just_released("SECONDARY"):
-		callSecondary(false)
-	
+	if !immobilized:
+		# Uses action strength so that analog movement works
+		fbrl = Vector2(Input.get_action_strength("R") - Input.get_action_strength("L"), Input.get_action_strength("BW") - Input.get_action_strength("FW")).clamped(1)
+		
+		# Jump logic so that holding space will make the character jump continuously
+		if Input.is_action_just_released("JUMP"):
+			willJump = false
+		if Input.is_action_just_pressed("JUMP"):
+			willJump = true
+		
+		# Calls crouch when you press crouch
+		if Input.is_action_just_pressed("CROUCH"):
+			crouchToggle()
+		
+		lean = Input.get_action_strength("LEANR") - Input.get_action_strength("LEANL") # Takes input for leaning
+		
+		#Interaction
+		if Input.is_action_just_pressed("INTERACT"):
+			interacting = true
+		if Input.is_action_just_released("INTERACT"):
+			interacting = false
+		
+		if Input.is_action_just_pressed("JOURNAL"):
+			Journal.open()
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			get_tree().paused = true
+		
+		if Input.is_action_just_pressed("PRIMARY"):
+			callPrimary(true)
+		if Input.is_action_just_released("PRIMARY"):
+			callPrimary(false)
+		
+		if Input.is_action_just_pressed("SECONDARY"):
+			callSecondary(true)
+		if Input.is_action_just_released("SECONDARY"):
+			callSecondary(false)
+		
 	if event is InputEventMouseMotion: # If the input even is mouse motion
 		mouseLook(event) # Call mouse look and pass the event
-		
+	
 	#Quit game on exit key pressed
 	if Input.is_action_pressed("QUIT"):
 		get_tree().quit()
@@ -97,9 +100,13 @@ func mouseLook(event):
 	$CamY/CamX.rotation.x = clamp($CamY/CamX.rotation.x - event.relative.y * mouseSensitivity, -lookLimit, lookLimit) # Rotates CamX in accordance to mouse y axis movement
 
 func interact():
-	if interacting:
-		var col = $CamY/CamX/Camera/InteractionCast.get_collider()
-		if col != null:
+	var col = $CamY/CamX/Camera/InteractionCast.get_collider()
+	if col != null:
+		if col.get("description") != null:
+			$HUD.display(col.description)
+		else:
+			$HUD.display("")
+		if interacting:
 			if interactingWith == null:
 				if col.has_method("interacted"):
 					interactingWith = col
@@ -109,6 +116,7 @@ func interact():
 		else:
 			uninteract()
 	else:
+		$HUD.display("")
 		uninteract()
 
 func uninteract():
@@ -116,6 +124,7 @@ func uninteract():
 		interactingWith.interacted(false)
 	interactingWith = null
 	interacting = false
+	$HUD.displayRing(0)
 
 
 
@@ -160,8 +169,9 @@ func _physics_process(delta):
 	#$Label.text = "Vis level = " + str(visibilityLevel)
 	
 	mMode()
-	hMovement(delta)
-	vMovement(delta)
+	if !immobilized:
+		hMovement(delta)
+		vMovement(delta)
 	jump()
 	calculateVisibility()
 	leanF(delta)

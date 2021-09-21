@@ -127,3 +127,4 @@ vram_compression/import_etc=true
 vram_compression/import_etc2=false
 quality/shading/force_vertex_shading=true
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=false

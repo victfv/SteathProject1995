@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://LevelBuilding/Interaction/InteractionArea.tscn" type="PackedScene" id=1]
+[ext_resource path="res://LevelBuilding/Vents/VentEntrance.gd" type="Script" id=2]
+
+[sub_resource type="SphereShape" id=1]
+radius = 2.0
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.5, 0.03, 0.5 )
+
+[node name="VentEntrance" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="ClimbUpInteraction" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0286331, 0 )
+interactFunction = "climbIn"
+collisionExtents = Vector3( 0.5, 0.02, 0.5 )
+description = "Climb into vent"
+
+[node name="ClimbOutInteraction" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0372473, 0 )
+interactFunction = "climbOut"
+collisionExtents = Vector3( 0.5, 0.02, 0.5 )
+description = "Climb out"
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+use_collision = true
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner"]
+width = 1.2
+height = 0.1
+depth = 1.2
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner"]
+operation = 2
+width = 1.0
+height = 0.1
+depth = 1.0
+
+[node name="ClimbPos" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.457794, 0 )
+
+[node name="InPos" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.898, 0 )
+
+[node name="PlayerDetectionArea" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="PlayerDetectionArea"]
+shape = SubResource( 1 )
+
+[node name="Cover" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Cover"]
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_PlayerDetectionArea_body_entered"]
+[connection signal="body_exited" from="PlayerDetectionArea" to="." method="_on_PlayerDetectionArea_body_exited"]
