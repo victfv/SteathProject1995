@@ -1,0 +1,246 @@
+{
+	"connections": [
+		{
+			"from": "noise_anisotropic",
+			"from_port": 0,
+			"to": "colorize",
+			"to_port": 0
+		},
+		{
+			"from": "noise_anisotropic_2",
+			"from_port": 0,
+			"to": "colorize_2",
+			"to_port": 0
+		},
+		{
+			"from": "colorize",
+			"from_port": 0,
+			"to": "blend",
+			"to_port": 0
+		},
+		{
+			"from": "colorize_2",
+			"from_port": 0,
+			"to": "blend",
+			"to_port": 1
+		},
+		{
+			"from": "blend",
+			"from_port": 0,
+			"to": "normal_map",
+			"to_port": 0
+		},
+		{
+			"from": "normal_map",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 4
+		},
+		{
+			"from": "bricks",
+			"from_port": 0,
+			"to": "blend_2",
+			"to_port": 0
+		},
+		{
+			"from": "blend",
+			"from_port": 0,
+			"to": "blend_2",
+			"to_port": 1
+		},
+		{
+			"from": "blend_2",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 0
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "@@1197",
+	"node_position": {
+		"x": 0,
+		"y": 0
+	},
+	"nodes": [
+		{
+			"export_paths": {
+				"Godot": "C:/Users/victf/Desktop/GODOT/Projects/Defense/Materials/PaintedWood/PaintedWood"
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 144,
+				"y": 92
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1,
+					"b": 0.613281,
+					"g": 0.419123,
+					"r": 0.177277,
+					"type": "Color"
+				},
+				"ao": 1,
+				"depth_scale": 0.5,
+				"emission_energy": 1,
+				"flags_transparent": false,
+				"metallic": 0,
+				"normal": 1,
+				"roughness": 1,
+				"size": 8,
+				"sss": 0
+			},
+			"type": "material"
+		},
+		{
+			"name": "noise_anisotropic",
+			"node_position": {
+				"x": -1014,
+				"y": -44
+			},
+			"parameters": {
+				"interpolation": 1,
+				"scale_x": 9,
+				"scale_y": 658,
+				"smoothness": 1
+			},
+			"type": "noise_anisotropic"
+		},
+		{
+			"name": "colorize",
+			"node_position": {
+				"x": -751,
+				"y": 53
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0.128906,
+							"g": 0.128906,
+							"pos": 0,
+							"r": 0.128906
+						},
+						{
+							"a": 1,
+							"b": 1,
+							"g": 1,
+							"pos": 0.127273,
+							"r": 1
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		},
+		{
+			"name": "noise_anisotropic_2",
+			"node_position": {
+				"x": -1047.5,
+				"y": 169
+			},
+			"parameters": {
+				"interpolation": 1,
+				"scale_x": 11,
+				"scale_y": 776,
+				"smoothness": 1
+			},
+			"type": "noise_anisotropic"
+		},
+		{
+			"name": "colorize_2",
+			"node_position": {
+				"x": -749,
+				"y": 195
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0.847656,
+							"g": 0.847656,
+							"pos": 0,
+							"r": 0.847656
+						},
+						{
+							"a": 1,
+							"b": 1,
+							"g": 1,
+							"pos": 0.209091,
+							"r": 1
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		},
+		{
+			"name": "blend",
+			"node_position": {
+				"x": -484,
+				"y": 111
+			},
+			"parameters": {
+				"amount": 1,
+				"blend_type": 2
+			},
+			"type": "blend"
+		},
+		{
+			"name": "normal_map",
+			"node_position": {
+				"x": -135,
+				"y": 223
+			},
+			"parameters": {
+				"param0": 8,
+				"param1": 0.28,
+				"param2": 0,
+				"param4": 1
+			},
+			"type": "normal_map"
+		},
+		{
+			"name": "bricks",
+			"node_position": {
+				"x": -519,
+				"y": -223
+			},
+			"parameters": {
+				"bevel": 0.02,
+				"columns": 0,
+				"corner": 0.3,
+				"mortar": 0.01,
+				"pattern": 0,
+				"repeat": 1,
+				"round": 0,
+				"row_offset": 0,
+				"rows": 9
+			},
+			"type": "bricks"
+		},
+		{
+			"name": "blend_2",
+			"node_position": {
+				"x": -251,
+				"y": 4.5
+			},
+			"parameters": {
+				"amount": 1,
+				"blend_type": 2
+			},
+			"type": "blend"
+		}
+	],
+	"parameters": {
+
+	},
+	"shortdesc": "",
+	"type": "graph"
+}

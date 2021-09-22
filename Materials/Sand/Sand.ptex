@@ -1,0 +1,386 @@
+{
+	"connections": [
+		{
+			"from": "colorize",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 0
+		},
+		{
+			"from": "perlin",
+			"from_port": 0,
+			"to": "blend",
+			"to_port": 0
+		},
+		{
+			"from": "blend",
+			"from_port": 0,
+			"to": "colorize",
+			"to_port": 0
+		},
+		{
+			"from": "transform2",
+			"from_port": 0,
+			"to": "make_tileable",
+			"to_port": 0
+		},
+		{
+			"from": "make_tileable",
+			"from_port": 0,
+			"to": "gaussian_blur",
+			"to_port": 0
+		},
+		{
+			"from": "voronoi",
+			"from_port": 0,
+			"to": "transform2",
+			"to_port": 0
+		},
+		{
+			"from": "gaussian_blur",
+			"from_port": 0,
+			"to": "warp",
+			"to_port": 0
+		},
+		{
+			"from": "voronoi_2",
+			"from_port": 0,
+			"to": "colorize_2",
+			"to_port": 0
+		},
+		{
+			"from": "colorize_2",
+			"from_port": 0,
+			"to": "warp",
+			"to_port": 1
+		},
+		{
+			"from": "warp",
+			"from_port": 0,
+			"to": "normal_map",
+			"to_port": 0
+		},
+		{
+			"from": "warp",
+			"from_port": 0,
+			"to": "emboss_2",
+			"to_port": 0
+		},
+		{
+			"from": "emboss_2",
+			"from_port": 0,
+			"to": "blend",
+			"to_port": 1
+		},
+		{
+			"from": "perlin_2",
+			"from_port": 0,
+			"to": "colorize_3",
+			"to_port": 0
+		},
+		{
+			"from": "colorize_3",
+			"from_port": 0,
+			"to": "export",
+			"to_port": 0
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "267",
+	"node_position": {
+		"x": 0,
+		"y": 0
+	},
+	"nodes": [
+		{
+			"export_paths": {
+				"Godot": "C:/Users/victf/Desktop/GODOT/Projects/Shooter/Materials/Sand/Sand"
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 199.090912,
+				"y": 15.454545
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1,
+					"b": 1,
+					"g": 1,
+					"r": 1,
+					"type": "Color"
+				},
+				"ao": 1,
+				"depth_scale": 0.5,
+				"emission_energy": 1,
+				"flags_transparent": false,
+				"metallic": 0,
+				"normal": 1,
+				"roughness": 1,
+				"size": 7,
+				"sss": 0
+			},
+			"type": "material"
+		},
+		{
+			"name": "voronoi",
+			"node_position": {
+				"x": -1974.873291,
+				"y": 75.30014
+			},
+			"parameters": {
+				"intensity": 1,
+				"randomness": 0.85,
+				"scale_x": 50,
+				"scale_y": 50,
+				"stretch_x": 1,
+				"stretch_y": 1
+			},
+			"type": "voronoi"
+		},
+		{
+			"name": "transform2",
+			"node_position": {
+				"x": -1649.224609,
+				"y": 78.270027
+			},
+			"parameters": {
+				"mode": 1,
+				"rotate": 65.815,
+				"scale_x": 3.545,
+				"scale_y": 1,
+				"translate_x": 0,
+				"translate_y": 0
+			},
+			"type": "transform2"
+		},
+		{
+			"name": "colorize",
+			"node_position": {
+				"x": -189.302536,
+				"y": 0.878933
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0.192157,
+							"g": 0.313726,
+							"pos": 0,
+							"r": 0.407843
+						},
+						{
+							"a": 1,
+							"b": 0.466667,
+							"g": 0.72549,
+							"pos": 1,
+							"r": 0.92549
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		},
+		{
+			"name": "normal_map",
+			"node_position": {
+				"x": -153.094421,
+				"y": 300.117859
+			},
+			"parameters": {
+				"param0": 7,
+				"param1": 0.06,
+				"param2": 0,
+				"param4": 1
+			},
+			"type": "normal_map"
+		},
+		{
+			"name": "gaussian_blur",
+			"node_position": {
+				"x": -1098.607178,
+				"y": 58.143147
+			},
+			"parameters": {
+				"param0": 9,
+				"param1": 3.4,
+				"param2": 0
+			},
+			"type": "gaussian_blur"
+		},
+		{
+			"name": "perlin",
+			"node_position": {
+				"x": -972.604797,
+				"y": -170.319382
+			},
+			"parameters": {
+				"iterations": 7,
+				"persistence": 0.95,
+				"scale_x": 7,
+				"scale_y": 7
+			},
+			"type": "perlin"
+		},
+		{
+			"name": "blend",
+			"node_position": {
+				"x": -528.907654,
+				"y": 3.19002
+			},
+			"parameters": {
+				"amount": 0.48,
+				"blend_type": 0
+			},
+			"type": "blend"
+		},
+		{
+			"name": "make_tileable",
+			"node_position": {
+				"x": -1344.157837,
+				"y": 110.512085
+			},
+			"parameters": {
+				"w": 0.14
+			},
+			"type": "make_tileable"
+		},
+		{
+			"name": "voronoi_2",
+			"node_position": {
+				"x": -1198.838623,
+				"y": 224.418457
+			},
+			"parameters": {
+				"intensity": 1,
+				"randomness": 0.85,
+				"scale_x": 2,
+				"scale_y": 1,
+				"stretch_x": 1,
+				"stretch_y": 1
+			},
+			"type": "voronoi"
+		},
+		{
+			"name": "warp",
+			"node_position": {
+				"x": -712.736694,
+				"y": 42.219803
+			},
+			"parameters": {
+				"amount": 0.015,
+				"eps": 0.19,
+				"mode": 0
+			},
+			"type": "warp"
+		},
+		{
+			"name": "colorize_2",
+			"node_position": {
+				"x": -894.422607,
+				"y": 178.545471
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 3,
+					"points": [
+						{
+							"a": 1,
+							"b": 1,
+							"g": 1,
+							"pos": 0,
+							"r": 1
+						},
+						{
+							"a": 1,
+							"b": 0,
+							"g": 0,
+							"pos": 0.715041,
+							"r": 0
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		},
+		{
+			"name": "emboss_2",
+			"node_position": {
+				"x": -595.843079,
+				"y": 172.991089
+			},
+			"parameters": {
+				"param0": 9,
+				"param1": 0,
+				"param2": 2,
+				"param3": 1
+			},
+			"type": "emboss"
+		},
+		{
+			"name": "export",
+			"node_position": {
+				"x": 215.784592,
+				"y": 377.181427
+			},
+			"parameters": {
+				"size": 8,
+				"suffix": "mask"
+			},
+			"type": "export"
+		},
+		{
+			"name": "perlin_2",
+			"node_position": {
+				"x": -267.625366,
+				"y": 530.607056
+			},
+			"parameters": {
+				"iterations": 6,
+				"persistence": 0.85,
+				"scale_x": 11,
+				"scale_y": 11
+			},
+			"type": "perlin"
+		},
+		{
+			"name": "colorize_3",
+			"node_position": {
+				"x": 7.900605,
+				"y": 512.331177
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0,
+							"g": 0,
+							"pos": 0.400697,
+							"r": 0
+						},
+						{
+							"a": 1,
+							"b": 1,
+							"g": 1,
+							"pos": 0.573425,
+							"r": 1
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		}
+	],
+	"parameters": {
+
+	},
+	"shortdesc": "",
+	"type": "graph"
+}

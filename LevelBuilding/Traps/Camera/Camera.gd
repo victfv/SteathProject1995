@@ -30,6 +30,7 @@ func updRange(a):
 func _ready():
 	if !Engine.editor_hint:
 		$range.queue_free()
+	$CamY/CameraMesh/Vision.visionConeHalfAngle = fov
 	updCone()
 
 func updfov(a):
@@ -39,7 +40,7 @@ func updfov(a):
 		updCone()
 
 func updCone():
-	var scl = (1/cos(deg2rad(fov + 2)))*sin(deg2rad(fov + 2))
+	var scl = (1/cos(deg2rad(fov)))*sin(deg2rad(fov))
 	$CamY/CameraMesh/ViewConeScaler/ViewCone.scale.x = scl
 	$CamY/CameraMesh/ViewConeScaler/ViewCone.scale.z = scl
 

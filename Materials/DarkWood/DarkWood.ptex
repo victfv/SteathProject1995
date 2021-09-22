@@ -1,0 +1,165 @@
+{
+	"connections": [
+		{
+			"from": "perlin",
+			"from_port": 0,
+			"to": "colorize",
+			"to_port": 0
+		},
+		{
+			"from": "normal_map",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 4
+		},
+		{
+			"from": "colorize",
+			"from_port": 0,
+			"to": "normal_map",
+			"to_port": 0
+		},
+		{
+			"from": "perlin",
+			"from_port": 0,
+			"to": "colorize_2",
+			"to_port": 0
+		},
+		{
+			"from": "colorize_2",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 0
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "1266",
+	"node_position": {
+		"x": 0,
+		"y": 0
+	},
+	"nodes": [
+		{
+			"export_paths": {
+
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 0,
+				"y": 0
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1,
+					"b": 0.09481,
+					"g": 0.134247,
+					"r": 0.167969,
+					"type": "Color"
+				},
+				"ao": 1,
+				"depth_scale": 0.5,
+				"emission_energy": 1,
+				"flags_transparent": false,
+				"metallic": 0,
+				"normal": 1,
+				"roughness": 1,
+				"size": 7,
+				"sss": 0
+			},
+			"type": "material"
+		},
+		{
+			"name": "perlin",
+			"node_position": {
+				"x": -894.5,
+				"y": -4
+			},
+			"parameters": {
+				"iterations": 6,
+				"persistence": 0.85,
+				"scale_x": 128,
+				"scale_y": 6
+			},
+			"type": "perlin"
+		},
+		{
+			"name": "colorize",
+			"node_position": {
+				"x": -582.5,
+				"y": 116
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0,
+							"g": 0,
+							"pos": 0.235227,
+							"r": 0
+						},
+						{
+							"a": 1,
+							"b": 1,
+							"g": 1,
+							"pos": 0.426136,
+							"r": 1
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		},
+		{
+			"name": "normal_map",
+			"node_position": {
+				"x": -305.5,
+				"y": 139
+			},
+			"parameters": {
+				"param0": 7,
+				"param1": 1,
+				"param2": 0,
+				"param4": 1
+			},
+			"type": "normal_map"
+		},
+		{
+			"name": "colorize_2",
+			"node_position": {
+				"x": -572.625,
+				"y": -40.375
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0,
+							"g": 0,
+							"pos": 0.327273,
+							"r": 0
+						},
+						{
+							"a": 1,
+							"b": 0.851563,
+							"g": 0.851563,
+							"pos": 0.6,
+							"r": 0.851563
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		}
+	],
+	"parameters": {
+
+	},
+	"shortdesc": "",
+	"type": "graph"
+}

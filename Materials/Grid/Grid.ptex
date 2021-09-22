@@ -1,0 +1,72 @@
+{
+	"connections": [
+		{
+			"from": "bricks",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 0
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "@@264",
+	"node_position": {
+		"x": 0,
+		"y": 0
+	},
+	"nodes": [
+		{
+			"export_paths": {
+				"Godot": "C:/Users/victf/Desktop/GODOT/Projects/Shooter/Materials/Grid/Grid"
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 0,
+				"y": 0
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1,
+					"b": 1,
+					"g": 1,
+					"r": 1,
+					"type": "Color"
+				},
+				"ao": 1,
+				"depth_scale": 0.5,
+				"emission_energy": 1,
+				"flags_transparent": false,
+				"metallic": 1,
+				"normal": 1,
+				"roughness": 1,
+				"size": 7,
+				"sss": 0
+			},
+			"type": "material"
+		},
+		{
+			"name": "bricks",
+			"node_position": {
+				"x": -584,
+				"y": 6.5
+			},
+			"parameters": {
+				"bevel": 0,
+				"columns": 1,
+				"corner": 0.3,
+				"mortar": 0.02,
+				"pattern": 0,
+				"repeat": 1,
+				"round": 0,
+				"row_offset": 0,
+				"rows": 1
+			},
+			"type": "bricks"
+		}
+	],
+	"parameters": {
+
+	},
+	"shortdesc": "",
+	"type": "graph"
+}

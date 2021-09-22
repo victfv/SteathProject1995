@@ -1,0 +1,392 @@
+{
+	"connections": [
+		{
+			"from": "perlin",
+			"from_port": 0,
+			"to": "colorize",
+			"to_port": 0
+		},
+		{
+			"from": "shape",
+			"from_port": 0,
+			"to": "colorize_2",
+			"to_port": 0
+		},
+		{
+			"from": "colorize",
+			"from_port": 0,
+			"to": "blend",
+			"to_port": 0
+		},
+		{
+			"from": "colorize_2",
+			"from_port": 0,
+			"to": "blend",
+			"to_port": 1
+		},
+		{
+			"from": "perlin_2",
+			"from_port": 0,
+			"to": "colorize_3",
+			"to_port": 0
+		},
+		{
+			"from": "colorize_3",
+			"from_port": 0,
+			"to": "blend_2",
+			"to_port": 0
+		},
+		{
+			"from": "blend",
+			"from_port": 0,
+			"to": "blend_2",
+			"to_port": 1
+		},
+		{
+			"from": "gradient",
+			"from_port": 0,
+			"to": "blend_3",
+			"to_port": 0
+		},
+		{
+			"from": "blend_2",
+			"from_port": 0,
+			"to": "blend_3",
+			"to_port": 1
+		},
+		{
+			"from": "colorize_2",
+			"from_port": 0,
+			"to": "colorize_4",
+			"to_port": 0
+		},
+		{
+			"from": "colorize_4",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 7
+		},
+		{
+			"from": "blend_3",
+			"from_port": 0,
+			"to": "combine",
+			"to_port": 0
+		},
+		{
+			"from": "blend_3",
+			"from_port": 0,
+			"to": "combine",
+			"to_port": 1
+		},
+		{
+			"from": "blend_3",
+			"from_port": 0,
+			"to": "combine",
+			"to_port": 2
+		},
+		{
+			"from": "colorize_4",
+			"from_port": 0,
+			"to": "combine",
+			"to_port": 3
+		},
+		{
+			"from": "combine",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 0
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "@@267",
+	"node_position": {
+		"x": 0,
+		"y": 0
+	},
+	"nodes": [
+		{
+			"export_paths": {
+				"Godot": "C:/Users/victf/Desktop/GODOT/Projects/Shooter/Materials/Buildings/Concrete/ConcreteWindows",
+				"Unreal": "C:/Users/victf/Desktop/GODOT/Projects/Shooter/Materials/Buildings/Concrete/ConcreteWindows"
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 746.110291,
+				"y": 40.590042
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1,
+					"b": 1,
+					"g": 1,
+					"r": 1,
+					"type": "Color"
+				},
+				"ao": 1,
+				"depth_scale": 0.5,
+				"emission_energy": 1,
+				"flags_transparent": true,
+				"metallic": 0,
+				"normal": 1,
+				"roughness": 1,
+				"size": 7,
+				"sss": 0
+			},
+			"type": "material"
+		},
+		{
+			"name": "perlin",
+			"node_position": {
+				"x": -868.636353,
+				"y": -69.318184
+			},
+			"parameters": {
+				"iterations": 5,
+				"persistence": 0.7,
+				"scale_x": 38,
+				"scale_y": 2
+			},
+			"type": "perlin"
+		},
+		{
+			"name": "colorize",
+			"node_position": {
+				"x": -613,
+				"y": -62.5
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0.09375,
+							"g": 0.09375,
+							"pos": 0,
+							"r": 0.09375
+						},
+						{
+							"a": 1,
+							"b": 0.308594,
+							"g": 0.308594,
+							"pos": 1,
+							"r": 0.308594
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		},
+		{
+			"name": "shape",
+			"node_position": {
+				"x": -795.727356,
+				"y": 141.499985
+			},
+			"parameters": {
+				"edge": 0.1,
+				"radius": 0.53,
+				"shape": 1,
+				"sides": 4
+			},
+			"type": "shape"
+		},
+		{
+			"name": "colorize_2",
+			"node_position": {
+				"x": -650.921692,
+				"y": 93.327156
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 1,
+							"g": 1,
+							"pos": 0.42691,
+							"r": 1
+						},
+						{
+							"a": 1,
+							"b": 0,
+							"g": 0,
+							"pos": 1,
+							"r": 0
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		},
+		{
+			"name": "blend",
+			"node_position": {
+				"x": -384.818207,
+				"y": 23.318169
+			},
+			"parameters": {
+				"amount": 1,
+				"blend_type": 2
+			},
+			"type": "blend"
+		},
+		{
+			"name": "perlin_2",
+			"node_position": {
+				"x": -808.454529,
+				"y": 286.045441
+			},
+			"parameters": {
+				"iterations": 5,
+				"persistence": 0.5,
+				"scale_x": 14,
+				"scale_y": 5
+			},
+			"type": "perlin"
+		},
+		{
+			"name": "colorize_3",
+			"node_position": {
+				"x": -485.727295,
+				"y": 254.636368
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0,
+							"g": 0,
+							"pos": 0,
+							"r": 0
+						},
+						{
+							"a": 1,
+							"b": 1,
+							"g": 1,
+							"pos": 1,
+							"r": 1
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		},
+		{
+			"name": "blend_2",
+			"node_position": {
+				"x": -116.978249,
+				"y": 36.462605
+			},
+			"parameters": {
+				"amount": 0.66,
+				"blend_type": 2
+			},
+			"type": "blend"
+		},
+		{
+			"name": "gradient",
+			"node_position": {
+				"x": -143.282333,
+				"y": -102.25679
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 1,
+							"g": 1,
+							"pos": 0.832226,
+							"r": 1
+						},
+						{
+							"a": 1,
+							"b": 0,
+							"g": 0,
+							"pos": 0.850498,
+							"r": 0
+						},
+						{
+							"a": 1,
+							"b": 1,
+							"g": 1,
+							"pos": 0.868771,
+							"r": 1
+						}
+					],
+					"type": "Gradient"
+				},
+				"repeat": 1,
+				"rotate": 90
+			},
+			"type": "gradient"
+		},
+		{
+			"name": "blend_3",
+			"node_position": {
+				"x": 158.678635,
+				"y": 6.050129
+			},
+			"parameters": {
+				"amount": 0.66,
+				"blend_type": 2
+			},
+			"type": "blend"
+		},
+		{
+			"name": "colorize_4",
+			"node_position": {
+				"x": 11.187771,
+				"y": 211.474808
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0,
+							"g": 0,
+							"pos": 0,
+							"r": 0
+						},
+						{
+							"a": 1,
+							"b": 1,
+							"g": 1,
+							"pos": 0.053156,
+							"r": 1
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		},
+		{
+			"name": "combine",
+			"node_position": {
+				"x": 403.558563,
+				"y": -10.072892
+			},
+			"parameters": {
+
+			},
+			"type": "combine"
+		}
+	],
+	"parameters": {
+
+	},
+	"shortdesc": "",
+	"type": "graph"
+}

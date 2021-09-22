@@ -7,6 +7,8 @@ var alpha = 0.0
 var step = 0
 var inOut = 0
 
+func _ready():
+	set_physics_process(false)
 
 func climbIn(state):
 	opening = state
@@ -32,13 +34,13 @@ func _physics_process(delta):
 						$Cover.collision_layer = 0
 						step = 1
 				1:
-					interpTo($ClimbPos.global_transform.origin, delta)
+					interpTo($ClimbPos.global_transform.origin, delta, 2)
 					if alpha == 1:
 						step = 2
 						orgn = MasterScript.player.global_transform.origin
 						alpha = 0.0
 				2:
-					interpTo($InPos.global_transform.origin, delta)
+					interpTo($InPos.global_transform.origin, delta, 1)
 					if alpha == 1:
 						resetClimb()
 		1:
@@ -49,18 +51,18 @@ func _physics_process(delta):
 					$Cover.collision_layer = 0
 					step = 1
 				1:
-					interpTo($InPos.global_transform.origin, delta)
+					interpTo($InPos.global_transform.origin, delta, 3)
 					if alpha == 1:
 						step = 2
 						orgn = MasterScript.player.global_transform.origin
 						alpha = 0.0
 				2:
-					interpTo($ClimbPos.global_transform.origin, delta)
+					interpTo($ClimbPos.global_transform.origin, delta, 1)
 					if alpha == 1:
 						resetClimb()
 
-func interpTo(pos, delta):
-	alpha = min(alpha + delta, 1.0)
+func interpTo(pos, delta, speed):
+	alpha = min(alpha + delta * speed, 1.0)
 	MasterScript.player.global_transform.origin = lerp(orgn, pos, alpha)
 
 func resetClimb():

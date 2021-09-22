@@ -1,0 +1,239 @@
+{
+	"connections": [
+		{
+			"from": "perlin",
+			"from_port": 0,
+			"to": "colorize_2",
+			"to_port": 0
+		},
+		{
+			"from": "colorize_2",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 0
+		},
+		{
+			"from": "normal_map",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 4
+		},
+		{
+			"from": "shape",
+			"from_port": 0,
+			"to": "transform2",
+			"to_port": 0
+		},
+		{
+			"from": "transform2",
+			"from_port": 0,
+			"to": "invert",
+			"to_port": 0
+		},
+		{
+			"from": "invert",
+			"from_port": 0,
+			"to": "gaussian_blur",
+			"to_port": 0
+		},
+		{
+			"from": "gaussian_blur",
+			"from_port": 0,
+			"to": "colorize_3",
+			"to_port": 0
+		},
+		{
+			"from": "colorize_3",
+			"from_port": 0,
+			"to": "normal_map",
+			"to_port": 0
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "264",
+	"node_position": {
+		"x": 0,
+		"y": 0
+	},
+	"nodes": [
+		{
+			"export_paths": {
+				"Godot": "C:/Users/victf/Desktop/GODOT/Projects/Defense/Materials/Mattress/Mattress"
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 688,
+				"y": 5
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1,
+					"b": 0.69308,
+					"g": 0.919673,
+					"r": 1,
+					"type": "Color"
+				},
+				"ao": 1,
+				"depth_scale": 0.5,
+				"emission_energy": 1,
+				"flags_transparent": false,
+				"metallic": 0,
+				"normal": 1,
+				"roughness": 1,
+				"size": 6,
+				"sss": 0
+			},
+			"type": "material"
+		},
+		{
+			"name": "gaussian_blur",
+			"node_position": {
+				"x": -419,
+				"y": 200.5
+			},
+			"parameters": {
+				"param0": 9,
+				"param1": 6.3,
+				"param2": 0
+			},
+			"type": "gaussian_blur"
+		},
+		{
+			"name": "normal_map",
+			"node_position": {
+				"x": 189,
+				"y": 201.5
+			},
+			"parameters": {
+				"param0": 6,
+				"param1": 1,
+				"param2": 0,
+				"param4": 0
+			},
+			"type": "normal_map"
+		},
+		{
+			"name": "perlin",
+			"node_position": {
+				"x": -182,
+				"y": -58.5
+			},
+			"parameters": {
+				"iterations": 8,
+				"persistence": 0.8,
+				"scale_x": 4,
+				"scale_y": 4
+			},
+			"type": "perlin"
+		},
+		{
+			"name": "colorize_2",
+			"node_position": {
+				"x": 205,
+				"y": -40.5
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0.308594,
+							"g": 0.308594,
+							"pos": 0,
+							"r": 0.308594
+						},
+						{
+							"a": 1,
+							"b": 0.738281,
+							"g": 0.738281,
+							"pos": 1,
+							"r": 0.738281
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"seed_value": -2774,
+			"type": "colorize"
+		},
+		{
+			"name": "shape",
+			"node_position": {
+				"x": -566.428589,
+				"y": 362.142853
+			},
+			"parameters": {
+				"edge": 1,
+				"radius": 0.38,
+				"shape": 3,
+				"sides": 4
+			},
+			"type": "shape"
+		},
+		{
+			"name": "transform2",
+			"node_position": {
+				"x": -384.428589,
+				"y": 361.142853
+			},
+			"parameters": {
+				"mode": 1,
+				"rotate": 0,
+				"scale_x": 0.25,
+				"scale_y": 0.25,
+				"translate_x": 0,
+				"translate_y": 0
+			},
+			"type": "transform2"
+		},
+		{
+			"name": "invert",
+			"node_position": {
+				"x": -131.428589,
+				"y": 362.142853
+			},
+			"parameters": {
+
+			},
+			"type": "invert"
+		},
+		{
+			"name": "colorize_3",
+			"node_position": {
+				"x": -125.428589,
+				"y": 194
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 2,
+					"points": [
+						{
+							"a": 1,
+							"b": 0,
+							"g": 0,
+							"pos": 0,
+							"r": 0
+						},
+						{
+							"a": 1,
+							"b": 0.738281,
+							"g": 0.738281,
+							"pos": 0.636364,
+							"r": 0.738281
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"seed_value": -2774,
+			"type": "colorize"
+		}
+	],
+	"parameters": {
+
+	},
+	"shortdesc": "",
+	"type": "graph"
+}
