@@ -29,7 +29,8 @@ func _physics_process(delta):
 						progress = min(progress + delta * 0.5, 1.0)
 					if progress == 1:
 						MasterScript.player.immobilized = true
-						MasterScript.player.crouchToggle()
+						if !MasterScript.player.crouching:
+							MasterScript.player.crouchToggle()
 						orgn = MasterScript.player.global_transform.origin
 						$Cover.collision_layer = 0
 						step = 1
