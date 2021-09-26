@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Tools/Visibility/VisibityTest.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Levels/Test/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://Tools/Visibility/VisibityTest.gd" type="Script" id=3]
+[ext_resource path="res://Levels/Test/EnemyShoot.gd" type="Script" id=4]
+
+[sub_resource type="CapsuleShape" id=7]
+
+[sub_resource type="CapsuleMesh" id=8]
+radius = 0.4
+mid_height = 0.7
+
+[node name="Enemy" type="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.1645, 1.84569, 6.88343 )
+collision_layer = 8
+collision_mask = 15
+script = ExtResource( 2 )
+patrolPoints = NodePath("../../PatrolPath")
+
+[node name="Body" type="CollisionShape" parent="."]
+transform = Transform( 0.4, 0, 0, 0, -1.74846e-08, -0.5, 0, 0.4, -2.18557e-08, 0, 0, 0 )
+shape = SubResource( 7 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Body"]
+transform = Transform( 2.5, 0, 0, 0, 2.5, 0, 0, -1.98952e-13, 2, 0, 0, 0 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="ShootPoint" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.707143 )
+script = ExtResource( 4 )
+
+[node name="Vision" type="Area" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1.20451 )
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": "Add a collision shape to activate the viewer"
+}
+visionConeHalfAngle = 30
+visibilityThreshold = 0.11
+
+[connection signal="body_entered" from="Vision" to="Vision" method="_on_Vision_body_entered"]
+[connection signal="body_exited" from="Vision" to="Vision" method="_on_Vision_body_exited"]
+[connection signal="seesPlayer" from="Vision" to="." method="_on_Vision_seesPlayer"]
+[connection signal="seesPlayer" from="Vision" to="ShootPoint" method="shoot"]
