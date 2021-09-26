@@ -120,6 +120,7 @@ PAUSE={
 3d_physics/layer_2="Player"
 3d_physics/layer_3="Interactibles"
 3d_physics/layer_4="Pushable"
+3d_physics/layer_5="InvisibleWall"
 
 [physics]
 

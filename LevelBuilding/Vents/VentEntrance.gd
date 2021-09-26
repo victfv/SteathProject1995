@@ -33,6 +33,7 @@ func _physics_process(delta):
 							MasterScript.player.crouchToggle()
 						orgn = MasterScript.player.global_transform.origin
 						$Cover.collision_layer = 0
+						$AnimationPlayer.play("CoverAnim")
 						step = 1
 				1:
 					interpTo($ClimbPos.global_transform.origin, delta, 2)
@@ -50,6 +51,7 @@ func _physics_process(delta):
 					MasterScript.player.immobilized = true
 					orgn = MasterScript.player.global_transform.origin
 					$Cover.collision_layer = 0
+					$AnimationPlayer.play("CoverAnim")
 					step = 1
 				1:
 					interpTo($InPos.global_transform.origin, delta, 3)
