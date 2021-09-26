@@ -1,0 +1,382 @@
+/*
+Instructions to setup this material:
+- copy material_dynamic.uasset and open the copy
+- copy the shader code below and paste it into the Custom node
+*/
+struct Functions {
+#define hlsl_atan(x,y) atan2(x, y)
+#define mod(x,y) ((x)-(y)*floor((x)/(y)))
+inline float4 textureLod(sampler2D tex, float2 uv, float lod) {
+    return tex2D(tex, uv);
+}
+inline float2 tofloat2(float x) {
+    return float2(x, x);
+}
+inline float2 tofloat2(float x, float y) {
+    return float2(x, y);
+}
+inline float3 tofloat3(float x) {
+    return float3(x, x, x);
+}
+inline float3 tofloat3(float x, float y, float z) {
+    return float3(x, y, z);
+}
+inline float3 tofloat3(float2 xy, float z) {
+    return float3(xy.x, xy.y, z);
+}
+inline float3 tofloat3(float x, float2 yz) {
+    return float3(x, yz.x, yz.y);
+}
+inline float4 tofloat4(float x, float y, float z, float w) {
+    return float4(x, y, z, w);
+}
+inline float4 tofloat4(float x) {
+    return float4(x, x, x, x);
+}
+inline float4 tofloat4(float x, float3 yzw) {
+    return float4(x, yzw.x, yzw.y, yzw.z);
+}
+inline float4 tofloat4(float2 xy, float2 zw) {
+    return float4(xy.x, xy.y, zw.x, zw.y);
+}
+inline float4 tofloat4(float3 xyz, float w) {
+    return float4(xyz.x, xyz.y, xyz.z, w);
+}
+inline float2x2 tofloat2x2(float2 v1, float2 v2) {
+    return float2x2(v1.x, v1.y, v2.x, v2.y);
+}
+
+#define textureLod(t, uv, lod) t.SampleLevel(t##Sampler, uv, lod)
+
+
+float rand(float2 x) {
+    return frac(cos(mod(dot(x, tofloat2(13.9898, 8.141)), 3.14)) * 43758.5453);
+}
+
+float2 rand2(float2 x) {
+    return frac(cos(mod(tofloat2(dot(x, tofloat2(13.9898, 8.141)),
+						      dot(x, tofloat2(3.4562, 17.398))), tofloat2(3.14))) * 43758.5453);
+}
+
+float3 rand3(float2 x) {
+    return frac(cos(mod(tofloat3(dot(x, tofloat2(13.9898, 8.141)),
+							  dot(x, tofloat2(3.4562, 17.398)),
+                              dot(x, tofloat2(13.254, 5.867))), tofloat3(3.14))) * 43758.5453);
+}
+
+float3 rgb2hsv(float3 c) {
+	float4 K = tofloat4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+	float4 p = c.g < c.b ? tofloat4(c.bg, K.wz) : tofloat4(c.gb, K.xy);
+	float4 q = c.r < p.x ? tofloat4(p.xyw, c.r) : tofloat4(c.r, p.yzx);
+
+	float d = q.x - min(q.w, q.y);
+	float e = 1.0e-10;
+	return tofloat3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+}
+
+float3 hsv2rgb(float3 c) {
+	float4 K = tofloat4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+	float3 p = abs(frac(c.xxx + K.xyz) * 6.0 - K.www);
+	return c.z * lerp(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+}
+
+
+float perlin(float2 uv, float2 size, int iterations, float persistence, int seed) {
+	float2 seed2 = rand2(tofloat2(float(seed), 1.0-float(seed)));
+    float rv = 0.0;
+    float coef = 1.0;
+    float acc = 0.0;
+    for (int i = 0; i < iterations; ++i) {
+    	float2 step = tofloat2(1.0)/size;
+		float2 xy = floor(uv*size);
+        float f0 = rand(seed2+mod(xy, size));
+        float f1 = rand(seed2+mod(xy+tofloat2(1.0, 0.0), size));
+        float f2 = rand(seed2+mod(xy+tofloat2(0.0, 1.0), size));
+        float f3 = rand(seed2+mod(xy+tofloat2(1.0, 1.0), size));
+        float2 lerpval = smoothstep(0.0, 1.0, frac(uv*size));
+        rv += coef * lerp(lerp(f0, f1, lerpval.x), lerp(f2, f3, lerpval.x), lerpval.y);
+        acc += coef;
+        size *= 2.0;
+        coef *= persistence;
+    }
+    
+    return rv / acc;
+}
+
+float shape_circle(float2 uv, float sides, float size, float edge) {
+    uv = 2.0*uv-1.0;
+	edge = max(edge, 1.0e-8);
+    float distance = length(uv);
+    return clamp((1.0-distance/size)/edge, 0.0, 1.0);
+}
+
+float shape_polygon(float2 uv, float sides, float size, float edge) {
+    uv = 2.0*uv-1.0;
+	edge = max(edge, 1.0e-8);
+    float angle = hlsl_atan(uv.x, uv.y)+3.14159265359;
+    float slice = 6.28318530718/sides;
+    return clamp((1.0-(cos(floor(0.5+angle/slice)*slice-angle)*length(uv))/size)/edge, 0.0, 1.0);
+}
+
+float shape_star(float2 uv, float sides, float size, float edge) {
+    uv = 2.0*uv-1.0;
+	edge = max(edge, 1.0e-8);
+    float angle = hlsl_atan(uv.x, uv.y);
+    float slice = 6.28318530718/sides;
+    return clamp((1.0-(cos(floor(angle*sides/6.28318530718-0.5+2.0*step(frac(angle*sides/6.28318530718), 0.5))*slice-angle)*length(uv))/size)/edge, 0.0, 1.0);
+}
+
+float shape_curved_star(float2 uv, float sides, float size, float edge) {
+    uv = 2.0*uv-1.0;
+	edge = max(edge, 1.0e-8);
+    float angle = 2.0*(hlsl_atan(uv.x, uv.y)+3.14159265359);
+    float slice = 6.28318530718/sides;
+    return clamp((1.0-cos(floor(0.5+0.5*angle/slice)*2.0*slice-angle)*length(uv)/size)/edge, 0.0, 1.0);
+}
+
+float shape_rays(float2 uv, float sides, float size, float edge) {
+    uv = 2.0*uv-1.0;
+	edge = 0.5*max(edge, 1.0e-8)*size;
+	float slice = 6.28318530718/sides;
+    float angle = mod(hlsl_atan(uv.x, uv.y)+3.14159265359, slice)/slice;
+    return clamp(min((size-angle)/edge, angle/edge), 0.0, 1.0);
+}
+
+
+float3 blend_normal(float2 uv, float3 c1, float3 c2, float opacity) {
+	return opacity*c1 + (1.0-opacity)*c2;
+}
+
+float3 blend_dissolve(float2 uv, float3 c1, float3 c2, float opacity) {
+	if (rand(uv) < opacity) {
+		return c1;
+	} else {
+		return c2;
+	}
+}
+
+float3 blend_multiply(float2 uv, float3 c1, float3 c2, float opacity) {
+	return opacity*c1*c2 + (1.0-opacity)*c2;
+}
+
+float3 blend_screen(float2 uv, float3 c1, float3 c2, float opacity) {
+	return opacity*(1.0-(1.0-c1)*(1.0-c2)) + (1.0-opacity)*c2;
+}
+
+float blend_overlay_f(float c1, float c2) {
+	return (c1 < 0.5) ? (2.0*c1*c2) : (1.0-2.0*(1.0-c1)*(1.0-c2));
+}
+
+float3 blend_overlay(float2 uv, float3 c1, float3 c2, float opacity) {
+	return opacity*tofloat3(blend_overlay_f(c1.x, c2.x), blend_overlay_f(c1.y, c2.y), blend_overlay_f(c1.z, c2.z)) + (1.0-opacity)*c2;
+}
+
+float3 blend_hard_light(float2 uv, float3 c1, float3 c2, float opacity) {
+	return opacity*0.5*(c1*c2+blend_overlay(uv, c1, c2, 1.0)) + (1.0-opacity)*c2;
+}
+
+float blend_soft_light_f(float c1, float c2) {
+	return (c2 < 0.5) ? (2.0*c1*c2+c1*c1*(1.0-2.0*c2)) : 2.0*c1*(1.0-c2)+sqrt(c1)*(2.0*c2-1.0);
+}
+
+float3 blend_soft_light(float2 uv, float3 c1, float3 c2, float opacity) {
+	return opacity*tofloat3(blend_soft_light_f(c1.x, c2.x), blend_soft_light_f(c1.y, c2.y), blend_soft_light_f(c1.z, c2.z)) + (1.0-opacity)*c2;
+}
+
+float blend_burn_f(float c1, float c2) {
+	return (c1==0.0)?c1:max((1.0-((1.0-c2)/c1)),0.0);
+}
+
+float3 blend_burn(float2 uv, float3 c1, float3 c2, float opacity) {
+	return opacity*tofloat3(blend_burn_f(c1.x, c2.x), blend_burn_f(c1.y, c2.y), blend_burn_f(c1.z, c2.z)) + (1.0-opacity)*c2;
+}
+
+float blend_dodge_f(float c1, float c2) {
+	return (c1==1.0)?c1:min(c2/(1.0-c1),1.0);
+}
+
+float3 blend_dodge(float2 uv, float3 c1, float3 c2, float opacity) {
+	return opacity*tofloat3(blend_dodge_f(c1.x, c2.x), blend_dodge_f(c1.y, c2.y), blend_dodge_f(c1.z, c2.z)) + (1.0-opacity)*c2;
+}
+
+float3 blend_lighten(float2 uv, float3 c1, float3 c2, float opacity) {
+	return opacity*max(c1, c2) + (1.0-opacity)*c2;
+}
+
+float3 blend_darken(float2 uv, float3 c1, float3 c2, float opacity) {
+	return opacity*min(c1, c2) + (1.0-opacity)*c2;
+}
+
+float3 blend_difference(float2 uv, float3 c1, float3 c2, float opacity) {
+	return opacity*clamp(c2-c1, tofloat3(0.0), tofloat3(1.0)) + (1.0-opacity)*c2;
+}
+
+static const float p_o4217_albedo_color_r = 1.000000000;
+static const float p_o4217_albedo_color_g = 1.000000000;
+static const float p_o4217_albedo_color_b = 1.000000000;
+static const float p_o4217_albedo_color_a = 1.000000000;
+static const float p_o4217_metallic = 0.000000000;
+static const float p_o4217_roughness = 1.000000000;
+static const float p_o4217_emission_energy = 1.000000000;
+static const float p_o4217_normal = 1.000000000;
+static const float p_o4217_ao = 1.000000000;
+static const float p_o4217_depth_scale = 0.500000000;
+float o4217_input_depth_tex(float2 uv) {
+
+return 0.0;
+}
+static const float p_o210046_amount = 0.660000000;
+static const float p_o201254_repeat = 1.000000000;
+static const float p_o201254_rotate = 90.000000000;
+static const float p_o201254_gradient_0_pos = 0.832225914;
+static const float p_o201254_gradient_0_r = 1.000000000;
+static const float p_o201254_gradient_0_g = 1.000000000;
+static const float p_o201254_gradient_0_b = 1.000000000;
+static const float p_o201254_gradient_0_a = 1.000000000;
+static const float p_o201254_gradient_1_pos = 0.850498339;
+static const float p_o201254_gradient_1_r = 0.000000000;
+static const float p_o201254_gradient_1_g = 0.000000000;
+static const float p_o201254_gradient_1_b = 0.000000000;
+static const float p_o201254_gradient_1_a = 1.000000000;
+static const float p_o201254_gradient_2_pos = 0.868770764;
+static const float p_o201254_gradient_2_r = 1.000000000;
+static const float p_o201254_gradient_2_g = 1.000000000;
+static const float p_o201254_gradient_2_b = 1.000000000;
+static const float p_o201254_gradient_2_a = 1.000000000;
+float4 o201254_gradient_gradient_fct(float x) {
+  if (x < p_o201254_gradient_0_pos) {
+    return tofloat4(p_o201254_gradient_0_r,p_o201254_gradient_0_g,p_o201254_gradient_0_b,p_o201254_gradient_0_a);
+  } else if (x < p_o201254_gradient_1_pos) {
+    return lerp(tofloat4(p_o201254_gradient_0_r,p_o201254_gradient_0_g,p_o201254_gradient_0_b,p_o201254_gradient_0_a), tofloat4(p_o201254_gradient_1_r,p_o201254_gradient_1_g,p_o201254_gradient_1_b,p_o201254_gradient_1_a), ((x-p_o201254_gradient_0_pos)/(p_o201254_gradient_1_pos-p_o201254_gradient_0_pos)));
+  } else if (x < p_o201254_gradient_2_pos) {
+    return lerp(tofloat4(p_o201254_gradient_1_r,p_o201254_gradient_1_g,p_o201254_gradient_1_b,p_o201254_gradient_1_a), tofloat4(p_o201254_gradient_2_r,p_o201254_gradient_2_g,p_o201254_gradient_2_b,p_o201254_gradient_2_a), ((x-p_o201254_gradient_1_pos)/(p_o201254_gradient_2_pos-p_o201254_gradient_1_pos)));
+  }
+  return tofloat4(p_o201254_gradient_2_r,p_o201254_gradient_2_g,p_o201254_gradient_2_b,p_o201254_gradient_2_a);
+}
+static const float p_o93820_amount = 0.660000000;
+static const float p_o74170_gradient_0_pos = 0.000000000;
+static const float p_o74170_gradient_0_r = 0.000000000;
+static const float p_o74170_gradient_0_g = 0.000000000;
+static const float p_o74170_gradient_0_b = 0.000000000;
+static const float p_o74170_gradient_0_a = 1.000000000;
+static const float p_o74170_gradient_1_pos = 1.000000000;
+static const float p_o74170_gradient_1_r = 1.000000000;
+static const float p_o74170_gradient_1_g = 1.000000000;
+static const float p_o74170_gradient_1_b = 1.000000000;
+static const float p_o74170_gradient_1_a = 1.000000000;
+float4 o74170_gradient_gradient_fct(float x) {
+  if (x < p_o74170_gradient_0_pos) {
+    return tofloat4(p_o74170_gradient_0_r,p_o74170_gradient_0_g,p_o74170_gradient_0_b,p_o74170_gradient_0_a);
+  } else if (x < p_o74170_gradient_1_pos) {
+    return lerp(tofloat4(p_o74170_gradient_0_r,p_o74170_gradient_0_g,p_o74170_gradient_0_b,p_o74170_gradient_0_a), tofloat4(p_o74170_gradient_1_r,p_o74170_gradient_1_g,p_o74170_gradient_1_b,p_o74170_gradient_1_a), ((x-p_o74170_gradient_0_pos)/(p_o74170_gradient_1_pos-p_o74170_gradient_0_pos)));
+  }
+  return tofloat4(p_o74170_gradient_1_r,p_o74170_gradient_1_g,p_o74170_gradient_1_b,p_o74170_gradient_1_a);
+}
+static const int seed_o67066 = -14538;
+static const float p_o67066_scale_x = 14.000000000;
+static const float p_o67066_scale_y = 5.000000000;
+static const float p_o67066_iterations = 5.000000000;
+static const float p_o67066_persistence = 0.500000000;
+static const float p_o51453_amount = 1.000000000;
+static const float p_o12738_gradient_0_pos = 0.000000000;
+static const float p_o12738_gradient_0_r = 0.093750000;
+static const float p_o12738_gradient_0_g = 0.093750000;
+static const float p_o12738_gradient_0_b = 0.093750000;
+static const float p_o12738_gradient_0_a = 1.000000000;
+static const float p_o12738_gradient_1_pos = 1.000000000;
+static const float p_o12738_gradient_1_r = 0.308593750;
+static const float p_o12738_gradient_1_g = 0.308593750;
+static const float p_o12738_gradient_1_b = 0.308593750;
+static const float p_o12738_gradient_1_a = 1.000000000;
+float4 o12738_gradient_gradient_fct(float x) {
+  if (x < p_o12738_gradient_0_pos) {
+    return tofloat4(p_o12738_gradient_0_r,p_o12738_gradient_0_g,p_o12738_gradient_0_b,p_o12738_gradient_0_a);
+  } else if (x < p_o12738_gradient_1_pos) {
+    return lerp(tofloat4(p_o12738_gradient_0_r,p_o12738_gradient_0_g,p_o12738_gradient_0_b,p_o12738_gradient_0_a), tofloat4(p_o12738_gradient_1_r,p_o12738_gradient_1_g,p_o12738_gradient_1_b,p_o12738_gradient_1_a), ((x-p_o12738_gradient_0_pos)/(p_o12738_gradient_1_pos-p_o12738_gradient_0_pos)));
+  }
+  return tofloat4(p_o12738_gradient_1_r,p_o12738_gradient_1_g,p_o12738_gradient_1_b,p_o12738_gradient_1_a);
+}
+static const int seed_o6131 = 34143;
+static const float p_o6131_scale_x = 38.000000000;
+static const float p_o6131_scale_y = 2.000000000;
+static const float p_o6131_iterations = 5.000000000;
+static const float p_o6131_persistence = 0.700000000;
+static const float p_o35849_gradient_0_pos = 0.426910299;
+static const float p_o35849_gradient_0_r = 1.000000000;
+static const float p_o35849_gradient_0_g = 1.000000000;
+static const float p_o35849_gradient_0_b = 1.000000000;
+static const float p_o35849_gradient_0_a = 1.000000000;
+static const float p_o35849_gradient_1_pos = 1.000000000;
+static const float p_o35849_gradient_1_r = 0.000000000;
+static const float p_o35849_gradient_1_g = 0.000000000;
+static const float p_o35849_gradient_1_b = 0.000000000;
+static const float p_o35849_gradient_1_a = 1.000000000;
+float4 o35849_gradient_gradient_fct(float x) {
+  if (x < p_o35849_gradient_0_pos) {
+    return tofloat4(p_o35849_gradient_0_r,p_o35849_gradient_0_g,p_o35849_gradient_0_b,p_o35849_gradient_0_a);
+  } else if (x < p_o35849_gradient_1_pos) {
+    return lerp(tofloat4(p_o35849_gradient_0_r,p_o35849_gradient_0_g,p_o35849_gradient_0_b,p_o35849_gradient_0_a), tofloat4(p_o35849_gradient_1_r,p_o35849_gradient_1_g,p_o35849_gradient_1_b,p_o35849_gradient_1_a), ((x-p_o35849_gradient_0_pos)/(p_o35849_gradient_1_pos-p_o35849_gradient_0_pos)));
+  }
+  return tofloat4(p_o35849_gradient_1_r,p_o35849_gradient_1_g,p_o35849_gradient_1_b,p_o35849_gradient_1_a);
+}
+static const float p_o31421_sides = 4.000000000;
+static const float p_o31421_radius = 0.530000000;
+static const float p_o31421_edge = 0.100000000;
+static const float p_o299791_gradient_0_pos = 0.000000000;
+static const float p_o299791_gradient_0_r = 0.000000000;
+static const float p_o299791_gradient_0_g = 0.000000000;
+static const float p_o299791_gradient_0_b = 0.000000000;
+static const float p_o299791_gradient_0_a = 1.000000000;
+static const float p_o299791_gradient_1_pos = 0.053156146;
+static const float p_o299791_gradient_1_r = 1.000000000;
+static const float p_o299791_gradient_1_g = 1.000000000;
+static const float p_o299791_gradient_1_b = 1.000000000;
+static const float p_o299791_gradient_1_a = 1.000000000;
+float4 o299791_gradient_gradient_fct(float x) {
+  if (x < p_o299791_gradient_0_pos) {
+    return tofloat4(p_o299791_gradient_0_r,p_o299791_gradient_0_g,p_o299791_gradient_0_b,p_o299791_gradient_0_a);
+  } else if (x < p_o299791_gradient_1_pos) {
+    return lerp(tofloat4(p_o299791_gradient_0_r,p_o299791_gradient_0_g,p_o299791_gradient_0_b,p_o299791_gradient_0_a), tofloat4(p_o299791_gradient_1_r,p_o299791_gradient_1_g,p_o299791_gradient_1_b,p_o299791_gradient_1_a), ((x-p_o299791_gradient_0_pos)/(p_o299791_gradient_1_pos-p_o299791_gradient_0_pos)));
+  }
+  return tofloat4(p_o299791_gradient_1_r,p_o299791_gradient_1_g,p_o299791_gradient_1_b,p_o299791_gradient_1_a);
+}
+
+
+	fixed4 generated_shader(float2 uv, out float metallic, out float roughness, out float3 normal) {
+float o201254_0_r = 0.5+(cos(p_o201254_rotate*0.01745329251)*((uv).x-0.5)+sin(p_o201254_rotate*0.01745329251)*((uv).y-0.5))/(cos(abs(mod(p_o201254_rotate, 90.0)-45.0)*0.01745329251)*1.41421356237);float4 o201254_0_1_rgba = o201254_gradient_gradient_fct(frac(o201254_0_r*p_o201254_repeat));
+float o67066_0_1_f = perlin((uv), tofloat2(p_o67066_scale_x, p_o67066_scale_y), int(p_o67066_iterations), p_o67066_persistence, seed_o67066);
+float4 o74170_0_1_rgba = o74170_gradient_gradient_fct(o67066_0_1_f);
+float o6131_0_1_f = perlin((uv), tofloat2(p_o6131_scale_x, p_o6131_scale_y), int(p_o6131_iterations), p_o6131_persistence, seed_o6131);
+float4 o12738_0_1_rgba = o12738_gradient_gradient_fct(o6131_0_1_f);
+float o31421_0_1_f = shape_polygon((uv), p_o31421_sides, p_o31421_radius*1.0, p_o31421_edge*1.0);
+float4 o35849_0_1_rgba = o35849_gradient_gradient_fct(o31421_0_1_f);
+float4 o51453_0_s1 = o12738_0_1_rgba;
+float4 o51453_0_s2 = o35849_0_1_rgba;
+float o51453_0_a = p_o51453_amount*1.0;
+float4 o51453_0_2_rgba = tofloat4(blend_multiply((uv), o51453_0_s1.rgb, o51453_0_s2.rgb, o51453_0_a*o51453_0_s1.a), min(1.0, o51453_0_s2.a+o51453_0_a*o51453_0_s1.a));
+float4 o93820_0_s1 = o74170_0_1_rgba;
+float4 o93820_0_s2 = o51453_0_2_rgba;
+float o93820_0_a = p_o93820_amount*1.0;
+float4 o93820_0_2_rgba = tofloat4(blend_multiply((uv), o93820_0_s1.rgb, o93820_0_s2.rgb, o93820_0_a*o93820_0_s1.a), min(1.0, o93820_0_s2.a+o93820_0_a*o93820_0_s1.a));
+float4 o210046_0_s1 = o201254_0_1_rgba;
+float4 o210046_0_s2 = o93820_0_2_rgba;
+float o210046_0_a = p_o210046_amount*1.0;
+float4 o210046_0_2_rgba = tofloat4(blend_multiply((uv), o210046_0_s1.rgb, o210046_0_s2.rgb, o210046_0_a*o210046_0_s1.a), min(1.0, o210046_0_s2.a+o210046_0_a*o210046_0_s1.a));
+float4 o299791_0_1_rgba = o299791_gradient_gradient_fct((dot((o35849_0_1_rgba).rgb, tofloat3(1.0))/3.0));
+float4 o328733_0_1_rgba = tofloat4((dot((o210046_0_2_rgba).rgb, tofloat3(1.0))/3.0), (dot((o210046_0_2_rgba).rgb, tofloat3(1.0))/3.0), (dot((o210046_0_2_rgba).rgb, tofloat3(1.0))/3.0), (dot((o299791_0_1_rgba).rgb, tofloat3(1.0))/3.0));
+
+        // sample the generated texture
+		fixed4 rv = tofloat4(((o328733_0_1_rgba).rgb), 1.0)*tofloat4(p_o4217_albedo_color_r, p_o4217_albedo_color_g, p_o4217_albedo_color_b, p_o4217_albedo_color_a);
+		metallic = 1.0*p_o4217_metallic;
+		roughness = 1.0*p_o4217_roughness;
+		normal = tofloat3(0.5)*float3(-1.0, -1.0, -1.0)+float3(1.0, 1.0, 1.0);
+        return rv;
+
+    }
+};
+Functions f;
+fixed4 albedo = f.generated_shader(TexCoords, metallic, roughness, normal);
+return albedo;
+
+
+

@@ -13,7 +13,6 @@ var playerInArea = false
 var stop = false
 export var scoutAngle = 80
 var rot = 0
-onready var player = MasterScript.player
 var suspicionLevel = 0.0
 
 onready var dss = get_world().direct_space_state
@@ -23,14 +22,17 @@ const alert = preload("res://SFX/Camera/camera_alert.wav")
 
 func updRange(a):
 	detectionRange = a
-	$CamY/CameraMesh/Vision.visibilityRange = detectionRange
-	$range.scale = Vector3(detectionRange,detectionRange,detectionRange)
-	$CamSounds.max_distance = detectionRange
+	if is_instance_valid($CamY/CameraMesh/Vision):
+		$CamY/CameraMesh/Vision.visibilityRange = detectionRange
+		$range.scale = Vector3(detectionRange,detectionRange,detectionRange)
+		$CamSounds.max_distance = detectionRange
 
 func _ready():
 	if !Engine.editor_hint:
 		$range.queue_free()
-	updCone()
+	if is_instance_valid($CamY/CameraMesh/Vision):
+		$CamY/CameraMesh/Vision.visionConeHalfAngle = fov
+		updCone()
 
 func updfov(a):
 	fov = a
@@ -39,9 +41,7 @@ func updfov(a):
 		updCone()
 
 func updCone():
-	var scl = (1/cos(deg2rad(fov + 2)))*sin(deg2rad(fov + 2))
-	$CamY/CameraMesh/ViewConeScaler/ViewCone.scale.x = scl
-	$CamY/CameraMesh/ViewConeScaler/ViewCone.scale.z = scl
+	$CamY/CameraMesh/DynamicCone.setCone(fov)
 
 func _physics_process(delta):
 	if !Engine.editor_hint:
@@ -54,9 +54,9 @@ func _physics_process(delta):
 			else:
 				var dist = $CamY/CameraMesh/Vision.visibilityStrength
 				$Label.text = str(dist)
-				suspicionLevel = clamp(suspicionLevel + clamp(delta * 2 * player.visibilityLevel, 0.006, 0.015), 0, 1)
+				suspicionLevel = clamp(suspicionLevel + clamp(delta * 2 * MasterScript.player.visibilityLevel, 0.006, 0.015), 0, 1)
 				if !staticCamera:
-					$LookDummy.look_at(player.global_transform.origin, Vector3.UP)
+					$LookDummy.look_at(MasterScript.player.global_transform.origin, Vector3.UP)
 					$CamY.rotation.y = lerp_angle($CamY.rotation.y, clamp($LookDummy.rotation.y - PI * sign($LookDummy.rotation.y), -deg2rad(scoutAngle), deg2rad(scoutAngle)), delta * 6)
 					timer = acos($CamY.rotation.y/(deg2rad(scoutAngle)))
 		
