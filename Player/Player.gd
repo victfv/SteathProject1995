@@ -22,6 +22,7 @@ var jumpImpulse = 3 #Impulse applied when jumping
 #Components
 onready var camY = $CamY
 onready var hud = $HUD
+onready var gameOverMenu = get_node("../GameOverMenu")
 
 #Misc
 onready var dss = get_world().direct_space_state #Direct space state, for programatically tracing rays and shapes
@@ -34,11 +35,16 @@ var interactingWith = null
 var lights = []
 var visibilityLevel = 0.0
 
+#Health
+var maxHealth = 2
+var health = maxHealth
+
 func _enter_tree():
 	MasterScript.player = self
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) # Captures mouse in game window
+	hud.updateHealth(health)
 
 func _input(event):
 	if !immobilized:
@@ -125,10 +131,6 @@ func uninteract():
 	interactingWith = null
 	interacting = false
 	$HUD.displayRing(0)
-
-
-
-
 
 func crouchToggle():
 	if crouching: # If player is crouching
@@ -258,3 +260,10 @@ func playerLight(delta):
 	else:
 		$PlayerGlow.light_energy = lerp($PlayerGlow.light_energy, 0.15,delta * 0.2)
 
+func damage(damageAmount):
+	health -= damageAmount
+	if(health < 0):
+		health = 0
+	hud.updateHealth(health)
+	if(health <= 0):
+		gameOverMenu.startGameOver()
