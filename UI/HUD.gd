@@ -15,3 +15,10 @@ func _process(delta):
 		$LightGem.modulate = Color(vis,vis,vis,0.8)
 	else:
 		$LightGem.modulate = Color(1,0.66,0.66,0.8)
+
+func updateHealth(newHealth):
+	$HealthLabel/HealthNumber.text = str(newHealth)
+	print(newHealth)
+
+func updateAmmo(ammo):
+	$AmmoLabel/AmmoNumber.text = str(ammo)

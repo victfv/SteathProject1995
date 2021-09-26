@@ -6,19 +6,18 @@
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://SFX/silencedTranq.wav" type="AudioStream" id=5]
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=1]
 flags_no_depth_test = true
 
-[sub_resource type="CapsuleShape" id=1]
+[sub_resource type="CapsuleShape" id=2]
 radius = 0.381343
 height = 0.94
 
-[sub_resource type="SphereMesh" id=2]
+[sub_resource type="SphereMesh" id=3]
 radius = 0.85
 height = 1.7
 
-[sub_resource type="Animation" id=3]
-resource_name = "Crouch"
+[sub_resource type="Animation" id=4]
 length = 0.4
 step = 0.01
 tracks/0/type = "bezier"
@@ -52,7 +51,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.4 )
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.001
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("CamY:translation:x")
@@ -85,7 +84,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="CapsuleShape" id=5]
+[sub_resource type="CapsuleShape" id=6]
 radius = 0.381343
 height = 0.47
 
@@ -110,8 +109,8 @@ collide_with_areas = true
 [node name="Equipped" type="Spatial" parent="CamY/CamX/Camera"]
 
 [node name="TranqGunWIP" type="Spatial" parent="CamY/CamX/Camera/Equipped"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22871, 0, 0 )
 script = ExtResource( 2 )
-speed = -200
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CamY/CamX/Camera/Equipped/TranqGunWIP"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0 )
@@ -121,7 +120,7 @@ bus = "Entities"
 
 [node name="Body" type="CSGBox" parent="CamY/CamX/Camera/Equipped/TranqGunWIP"]
 transform = Transform( 0.0365288, 0, 0, 0, 0.0365288, 0, 0, 0, 0.126269, 0.465883, -0.377412, -0.573542 )
-material_override = SubResource( 6 )
+material_override = SubResource( 1 )
 cast_shadow = 0
 
 [node name="SpawnPoint" type="Spatial" parent="CamY/CamX/Camera/Equipped/TranqGunWIP/Body"]
@@ -131,22 +130,22 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5368 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 visible = false
-mesh = SubResource( 2 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Crouch = SubResource( 3 )
-anims/RESET = SubResource( 4 )
+anims/Crouch = SubResource( 4 )
+anims/RESET = SubResource( 5 )
 
 [node name="HeadTest" type="Spatial" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="HeadTest"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.237186, 0 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="PlayerGlow" type="OmniLight" parent="."]
 light_color = Color( 0.682353, 0.670588, 1, 1 )

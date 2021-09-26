@@ -11,10 +11,16 @@ var bullet_scn = preload("res://Bullet.tscn")
 var shotsfx = load("res://SFX/silencedTranq.wav") 
 var reloadsfx = load("res://SFX/pistolReload.wav")
 
+onready var hud = get_node("../../../../../HUD")
+
+func _ready():
+	hud.updateAmmo(currentRounds)
+
 func primary(state):
 	if state:
 		if(currentRounds > 0):
 			currentRounds -= 1
+			hud.updateAmmo(currentRounds)
 			var new_bullet = bullet_scn.instance()
 			get_tree().get_root().add_child(new_bullet)
 			new_bullet.global_transform = $Body/SpawnPoint.global_transform
@@ -27,12 +33,13 @@ func primary(state):
 			
 func reload():
 	reloading = true
+	hud.updateAmmo("R")
 	yield(get_child(0), "finished")
 	get_child(0).stream = reloadsfx
 	get_child(0).play()
 	yield(get_child(0), "finished")
-	
 	currentRounds = maxRounds
 	reloading = false
 	get_child(0).stream = shotsfx
+	hud.updateAmmo(currentRounds)
 	

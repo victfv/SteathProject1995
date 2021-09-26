@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Fonts/OpenSans-Light.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://UI/HUD.gd" type="Script" id=2]
 [ext_resource path="res://Textures/UI/ProgressRing.png" type="Texture" id=3]
 [ext_resource path="res://Textures/UI/light.png" type="Texture" id=4]
+[ext_resource path="res://Fonts/HUDFont.tres" type="DynamicFont" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 14
@@ -70,6 +71,49 @@ margin_right = 40.0
 margin_bottom = 40.0
 rect_scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthLabel" type="Label" parent="."]
+margin_left = 357.233
+margin_top = -2.0
+margin_right = 528.233
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 5 )
+text = "Health: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthNumber" type="Label" parent="HealthLabel"]
+margin_left = 115.071
+margin_right = 155.071
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 5 )
+text = " 0"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AmmoLabel" type="Label" parent="."]
+margin_left = 357.233
+margin_top = 38.0
+margin_right = 528.233
+margin_bottom = 86.0
+custom_fonts/font = ExtResource( 5 )
+text = "Ammo: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AmmoNumber" type="Label" parent="AmmoLabel"]
+margin_left = 78.036
+margin_right = 118.036
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 5 )
+text = " 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }

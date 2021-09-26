@@ -20,7 +20,7 @@ func _process(_delta):
 			var new_bullet = Bullet.instance()
 			new_bullet.set_collision_layer_bit( 4, false )
 			new_bullet.set_collision_layer_bit( 3, false )
-			new_bullet.set_collision_layer_bit( 2, false )
+			new_bullet.set_collision_layer_bit( 2, true )
 			new_bullet.set_collision_layer_bit( 1, false )
 			new_bullet.get_node("CollisionShape").scale.x = 0.1
 			new_bullet.get_node("CollisionShape").scale.y = 0.1
