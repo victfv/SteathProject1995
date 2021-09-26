@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/VentT.obj-fea03e611970ea0608b1b63207c67613.mesh"
+
+[deps]
+
+files=[ "res://.import/VentT.obj-fea03e611970ea0608b1b63207c67613.mesh" ]
+
+source_file="res://Meshes/Architecture/Vents/VentT.obj"
+dest_files=[ "res://.import/VentT.obj-fea03e611970ea0608b1b63207c67613.mesh", "res://.import/VentT.obj-fea03e611970ea0608b1b63207c67613.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

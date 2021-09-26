@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://LevelBuilding/Architecture/DynamicWall.gd" type="Script" id=1]
+[ext_resource path="res://LevelBuilding/Architecture/4xWall.tres" type="ArrayMesh" id=2]
+[ext_resource path="res://Materials/PlasterWall/PlasterWall.tres" type="Material" id=3]
+
+[node name="Wall" type="Spatial"]
+script = ExtResource( 1 )
+material = ExtResource( 3 )
+mesh = ExtResource( 2 )

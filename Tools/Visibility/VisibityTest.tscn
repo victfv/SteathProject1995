@@ -62,14 +62,6 @@ mesh = SubResource( 4 )
 skeleton = NodePath("../..")
 material/0 = null
 
-[node name="Label" type="Label" parent="."]
-margin_top = 40.0
-margin_right = 40.0
-margin_bottom = 54.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 5 )
 

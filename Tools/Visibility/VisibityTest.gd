@@ -32,7 +32,6 @@ func _ready():
 
 func _physics_process(_delta):
 	if !Engine.editor_hint and enabled:
-		$Label.text = str(visibilityStrength)
 		# Dot product between player and light's z vector
 		var dot = (MasterScript.player.camY.global_transform.origin - global_transform.origin).normalized().dot(global_transform.basis.z.normalized())
 		# Compares angles and test if the visibility level is not 0

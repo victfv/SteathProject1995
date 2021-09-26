@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/VentCover.obj-b48bae222f84482bbe39ec8275c3a3c3.mesh"
+
+[deps]
+
+files=[ "res://.import/VentCover.obj-b48bae222f84482bbe39ec8275c3a3c3.mesh" ]
+
+source_file="res://Meshes/Architecture/Vents/VentCover.obj"
+dest_files=[ "res://.import/VentCover.obj-b48bae222f84482bbe39ec8275c3a3c3.mesh", "res://.import/VentCover.obj-b48bae222f84482bbe39ec8275c3a3c3.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

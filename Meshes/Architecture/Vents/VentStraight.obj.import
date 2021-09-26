@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/VentStraight.obj-8402290cea5ccb75ebf457bb1ad26437.mesh"
+
+[deps]
+
+files=[ "res://.import/VentStraight.obj-8402290cea5ccb75ebf457bb1ad26437.mesh" ]
+
+source_file="res://Meshes/Architecture/Vents/VentStraight.obj"
+dest_files=[ "res://.import/VentStraight.obj-8402290cea5ccb75ebf457bb1ad26437.mesh", "res://.import/VentStraight.obj-8402290cea5ccb75ebf457bb1ad26437.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
