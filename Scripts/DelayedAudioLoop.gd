@@ -1,6 +1,6 @@
 extends AudioStreamPlayer3D
 
-
+export var timeOutAmount = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,4 +11,4 @@ func _ready():
 func audio_loop():
 	while(true):
 		play()
-		yield(get_tree().create_timer(1), "timeout")
+		yield(get_tree().create_timer(timeOutAmount), "timeout")

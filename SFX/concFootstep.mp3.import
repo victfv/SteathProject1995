@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/concFootstep.mp3-16e72c0f1b4329167229ace1ad09c512.mp3str"
+
+[deps]
+
+source_file="res://SFX/concFootstep.mp3"
+dest_files=[ "res://.import/concFootstep.mp3-16e72c0f1b4329167229ace1ad09c512.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

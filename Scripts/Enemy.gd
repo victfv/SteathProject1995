@@ -65,9 +65,12 @@ func lookAtDestination(lookAtTransform):
 
 func tranqulize():
 	if(movementState!=2):
-		yield(get_tree().create_timer(timeTillDoze), "timeout")
+		#yield(get_tree().create_timer(timeTillDoze), "timeout")
 		movementState = 2
+		$AudioStreamPlayer3D.stop()
+		$TranqPlayer.play()
 		yield(get_tree().create_timer(lengthOfDoze), "timeout")
+		$AudioStreamPlayer3D.play()
 		movementState = 1
 		resetPath()
 
