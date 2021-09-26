@@ -3,12 +3,15 @@ tool
 extends Spatial
 
 export var upd = false setget updAll
+export var realTime = false
 export var size = Vector2(3,3) setget updSize
 export (Mesh) var mesh
 export (Material) var material setget updMat
 
 func updSize(a):
 	size = a
+	if realTime:
+		set_process(true)
 
 func updAll(a):
 	upd = a
@@ -28,10 +31,10 @@ func updFloor():
 	var yrest = (size.y/3) - floor(size.y/3)
 	
 	var sttc = StaticBody.new()
-	sttc.transform.origin = Vector3(size.x/2,-0.1,size.y/2)
+	sttc.transform.origin = Vector3(size.x/2,-0.02,size.y/2)
 	var shp = CollisionShape.new()
 	var bx = BoxShape.new()
-	bx.extents = Vector3(size.x/2,0.1,size.y/2)
+	bx.extents = Vector3(size.x/2,0.02,size.y/2)
 	shp.shape = bx
 	
 	add_child(sttc)
@@ -56,7 +59,7 @@ func updFloor():
 				n.scale.z = yrest
 
 func _process(delta):
-	if upd:
+	if upd or realTime:
 		upd = false
 		updFloor()
 	set_process(false)
@@ -67,4 +70,5 @@ func updMesh(a):
 func updMat(a):
 	material = a
 	for i in get_children():
-		i.material_override = material
+		if i is MeshInstance:
+			i.material_override = material

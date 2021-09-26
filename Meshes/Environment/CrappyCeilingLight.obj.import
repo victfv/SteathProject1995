@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/CrappyCeilingLight.obj-dba4103339b3a3fb15010f7312f03261.mesh"
+
+[deps]
+
+files=[ "res://.import/CrappyCeilingLight.obj-dba4103339b3a3fb15010f7312f03261.mesh" ]
+
+source_file="res://Meshes/Environment/CrappyCeilingLight.obj"
+dest_files=[ "res://.import/CrappyCeilingLight.obj-dba4103339b3a3fb15010f7312f03261.mesh", "res://.import/CrappyCeilingLight.obj-dba4103339b3a3fb15010f7312f03261.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

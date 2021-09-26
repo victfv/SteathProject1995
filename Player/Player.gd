@@ -17,7 +17,7 @@ var acceleration = 60
 var gDamping = 0.22 #Damping for ground movement
 var aDamping = 0.01 #Damping for air movement
 var gravity = -9.8 # Gravity
-var jumpImpulse = 5 #Impulse applied when jumping
+var jumpImpulse = 3 #Impulse applied when jumping
 
 #Components
 onready var camY = $CamY
@@ -256,5 +256,5 @@ func playerLight(delta):
 	if visibilityLevel > 0.1:
 		$PlayerGlow.light_energy = lerp($PlayerGlow.light_energy, 0,delta * 0.8)
 	else:
-		$PlayerGlow.light_energy = lerp($PlayerGlow.light_energy, 0.05,delta * 0.2)
+		$PlayerGlow.light_energy = lerp($PlayerGlow.light_energy, 0.15,delta * 0.2)
 

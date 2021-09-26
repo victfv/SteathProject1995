@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/chairCollision.obj-17e3425a74bcc7479a913a7942f9bb67.mesh"
+
+[deps]
+
+files=[ "res://.import/chairCollision.obj-17e3425a74bcc7479a913a7942f9bb67.mesh" ]
+
+source_file="res://Meshes/Environment/chairCollision.obj"
+dest_files=[ "res://.import/chairCollision.obj-17e3425a74bcc7479a913a7942f9bb67.mesh", "res://.import/chairCollision.obj-17e3425a74bcc7479a913a7942f9bb67.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

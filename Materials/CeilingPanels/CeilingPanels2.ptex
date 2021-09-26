@@ -1,0 +1,225 @@
+{
+	"connections": [
+		{
+			"from": "colorize",
+			"from_port": 0,
+			"to": "emboss_2",
+			"to_port": 0
+		},
+		{
+			"from": "bricks",
+			"from_port": 0,
+			"to": "gaussian_blur",
+			"to_port": 0
+		},
+		{
+			"from": "gaussian_blur",
+			"from_port": 0,
+			"to": "colorize",
+			"to_port": 0
+		},
+		{
+			"from": "perlin",
+			"from_port": 0,
+			"to": "blend",
+			"to_port": 1
+		},
+		{
+			"from": "emboss_2",
+			"from_port": 0,
+			"to": "tonality",
+			"to_port": 0
+		},
+		{
+			"from": "tonality",
+			"from_port": 0,
+			"to": "blend",
+			"to_port": 0
+		},
+		{
+			"from": "blend",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 0
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "@@267",
+	"node_position": {
+		"x": 0,
+		"y": 0
+	},
+	"nodes": [
+		{
+			"export_paths": {
+				"Godot": "C:/Users/victf/Documents/GitHub/SteathProject1995/Materials/CeilingPanels/CeilingPanels2"
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 132,
+				"y": 12
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1,
+					"b": 1,
+					"g": 1,
+					"r": 1,
+					"type": "Color"
+				},
+				"ao": 1,
+				"depth_scale": 0.5,
+				"emission_energy": 1,
+				"flags_transparent": false,
+				"metallic": 0,
+				"normal": 1,
+				"roughness": 1,
+				"size": 6,
+				"sss": 0
+			},
+			"type": "material"
+		},
+		{
+			"name": "bricks",
+			"node_position": {
+				"x": -1158,
+				"y": 60.5
+			},
+			"parameters": {
+				"bevel": 0.05,
+				"columns": 2,
+				"corner": 0.3,
+				"mortar": 0.02,
+				"pattern": 0,
+				"repeat": 1,
+				"round": 0,
+				"row_offset": 0,
+				"rows": 2
+			},
+			"type": "bricks"
+		},
+		{
+			"name": "perlin",
+			"node_position": {
+				"x": -565.115723,
+				"y": 312.888397
+			},
+			"parameters": {
+				"iterations": 8,
+				"persistence": 1,
+				"scale_x": 7,
+				"scale_y": 7
+			},
+			"type": "perlin"
+		},
+		{
+			"name": "emboss_2",
+			"node_position": {
+				"x": -541,
+				"y": 67.5
+			},
+			"parameters": {
+				"param0": 9,
+				"param1": 51.9,
+				"param2": 0.3,
+				"param3": 1
+			},
+			"type": "emboss"
+		},
+		{
+			"name": "colorize",
+			"node_position": {
+				"x": -728,
+				"y": 63.5
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 3,
+					"points": [
+						{
+							"a": 1,
+							"b": 1,
+							"g": 1,
+							"pos": 0,
+							"r": 1
+						},
+						{
+							"a": 1,
+							"b": 0.814013,
+							"g": 0.814013,
+							"pos": 0.50175,
+							"r": 0.814013
+						},
+						{
+							"a": 1,
+							"b": 0,
+							"g": 0,
+							"pos": 0.938114,
+							"r": 0
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		},
+		{
+			"name": "gaussian_blur",
+			"node_position": {
+				"x": -944,
+				"y": 66.5
+			},
+			"parameters": {
+				"param0": 9,
+				"param1": 4.8,
+				"param2": 0
+			},
+			"type": "gaussian_blur"
+		},
+		{
+			"name": "blend",
+			"node_position": {
+				"x": -160.324005,
+				"y": 151.123245
+			},
+			"parameters": {
+				"amount": 0.85,
+				"blend_type": 0
+			},
+			"type": "blend"
+		},
+		{
+			"name": "tonality",
+			"node_position": {
+				"x": -320.807495,
+				"y": 107.519958
+			},
+			"parameters": {
+				"curve": {
+					"points": [
+						{
+							"ls": 0,
+							"rs": 2.094444,
+							"x": 0,
+							"y": 0
+						},
+						{
+							"ls": 0.177273,
+							"rs": -0,
+							"x": 1,
+							"y": 1
+						}
+					],
+					"type": "Curve"
+				}
+			},
+			"type": "tonality"
+		}
+	],
+	"parameters": {
+
+	},
+	"shortdesc": "",
+	"type": "graph"
+}
