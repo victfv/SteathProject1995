@@ -2,7 +2,7 @@ extends Spatial
 
 
 export var damage = -1
-export var speed = 50
+var speed = -800
 var maxRounds = 2
 var currentRounds = 2
 var reloading = false
