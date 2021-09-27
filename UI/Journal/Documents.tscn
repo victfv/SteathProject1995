@@ -105,8 +105,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 128.0
 margin_bottom = 18.0
-docName = "E-Corp"
-docText = "There have been rumors going around that E-Corp has been doing some strange experiments under it's downtown office."
+docName = "Gaea"
+docText = "There have been rumors going around that Gaea has been doing some strange experiments under it's downtown office."
 
 [node name="DocReader" parent="." instance=ExtResource( 3 )]
 visible = false

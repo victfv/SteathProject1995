@@ -35,12 +35,13 @@ __meta__ = {
 [node name="TitleLabel" type="Label" parent="Main"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -101.29
-margin_top = 17.8
-margin_right = 118.71
-margin_bottom = 103.8
+margin_left = -145.0
+margin_right = 160.0
+margin_bottom = 121.0
 custom_fonts/font = SubResource( 1 )
 text = "Pause"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -75,6 +75,7 @@ func _input(event):
 			get_tree().paused = true
 		
 		if Input.is_action_just_pressed("PRIMARY"):
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			callPrimary(true)
 		if Input.is_action_just_released("PRIMARY"):
 			callPrimary(false)

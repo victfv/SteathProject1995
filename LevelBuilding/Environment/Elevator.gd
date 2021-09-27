@@ -1,5 +1,6 @@
 extends Spatial
 
+export (NodePath) var fade
 var end = false
 
 func open():
@@ -11,7 +12,7 @@ func close(state):
 	end = true
 
 func endGame():
-	pass
+	get_node(fade).fade()
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):

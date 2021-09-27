@@ -5,10 +5,7 @@
 [ext_resource path="res://Fonts/PauseMenuFont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://UI/buttonNormalStyle.tres" type="StyleBox" id=4]
 [ext_resource path="res://UI/buttonBorderStyle.tres" type="StyleBox" id=5]
-
-[sub_resource type="DynamicFont" id=1]
-size = 150
-font_data = ExtResource( 2 )
+[ext_resource path="res://Textures/BG.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=2]
 size = 50
@@ -45,29 +42,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0.133333, 0.211765, 1 )
+texture = ExtResource( 6 )
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MainScreen" type="Control" parent="."]
-margin_left = 154.0
-margin_top = 339.0
-margin_right = 194.0
-margin_bottom = 379.0
-
-[node name="Title" type="Label" parent="MainScreen"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -25.5
-margin_top = -324.467
-margin_right = 189.5
-margin_bottom = -195.467
-custom_fonts/font = SubResource( 1 )
-text = "1995"
+margin_left = 4.0
+margin_top = 260.0
+margin_right = 44.0
+margin_bottom = 300.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -81,11 +69,11 @@ margin_left = -20.0
 margin_top = -160.0
 margin_right = 184.0
 margin_bottom = -110.0
+custom_fonts/font = SubResource( 2 )
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = SubResource( 2 )
 text = "Play Game"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -100,11 +88,11 @@ margin_left = -20.0
 margin_top = -90.0
 margin_right = 184.0
 margin_bottom = -40.0
+custom_fonts/font = SubResource( 2 )
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = SubResource( 2 )
 text = "About"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -119,20 +107,27 @@ margin_left = -20.0
 margin_top = -20.0
 margin_right = 184.0
 margin_bottom = 30.0
+custom_fonts/font = SubResource( 2 )
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = SubResource( 2 )
 text = "Quit Game"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AboutScreen" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="AboutScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -158,11 +153,11 @@ margin_top = 66.0
 margin_right = 242.0
 margin_bottom = 274.0
 custom_fonts/font = SubResource( 3 )
-text = "3D Modeler: E C
-Programmer: Metal Gear Depressed
-Composer: Elefterios
-Artist: Keroboy
-Programmer: SmallMistake
+text = "3D Modeler: Elijah Carvalho
+Programmer: Metal Gear Depression
+Composer: Eleftherios
+Artist: Dorii
+Programmer: Morgan
 Sound Effects Engineer: Multi"
 align = 1
 __meta__ = {
@@ -178,11 +173,11 @@ margin_left = -72.0
 margin_top = 116.0
 margin_right = 72.0
 margin_bottom = 166.0
+custom_fonts/font = SubResource( 4 )
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = SubResource( 4 )
 text = "Return"
 __meta__ = {
 "_edit_use_anchors_": false

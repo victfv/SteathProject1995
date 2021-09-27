@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Fonts/000webfont.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Fonts/PauseMenuFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://UI/buttonBorderStyle.tres" type="StyleBox" id=3]
+[ext_resource path="res://UI/buttonNormalStyle.tres" type="StyleBox" id=4]
+[ext_resource path="res://Menus/End.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 1 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -138.0
+custom_fonts/font = SubResource( 1 )
+text = "You descend into the depths of the building.
+The subterranean lab is awaiting..."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -178.0
+margin_top = -128.0
+margin_right = 178.0
+margin_bottom = -40.0
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = ExtResource( 3 )
+custom_styles/disabled = ExtResource( 3 )
+custom_styles/normal = ExtResource( 4 )
+text = " Return to Menu "
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
