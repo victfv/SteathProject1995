@@ -1,7 +1,7 @@
 extends Spatial
 
 
-export var damage = -1
+export var damage = 1
 var speed = -800
 var maxRounds = 2
 var currentRounds = 2
@@ -22,10 +22,15 @@ func primary(state):
 			currentRounds -= 1
 			hud.updateAmmo(currentRounds)
 			var new_bullet = bullet_scn.instance()
-			get_tree().get_root().add_child(new_bullet)
+			new_bullet.set_collision_layer_bit( 5, true )
+			new_bullet.set_collision_layer_bit( 4, false )
+			new_bullet.set_collision_layer_bit( 3, false )
+			new_bullet.set_collision_layer_bit( 2, false )
+			new_bullet.set_collision_layer_bit( 1, false )
 			new_bullet.global_transform = $Body/SpawnPoint.global_transform
 			new_bullet.speed = speed
 			new_bullet.damage = damage
+			get_tree().get_root().add_child(new_bullet)
 			get_child(0).play()
 			if(currentRounds <= 0):
 				if(!reloading):
