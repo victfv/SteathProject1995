@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/ChangeSceneScript.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/000webfont.ttf" type="DynamicFontData" id=2]
@@ -22,6 +22,21 @@ font_data = ExtResource( 2 )
 size = 50
 font_data = ExtResource( 2 )
 
+[sub_resource type="Animation" id=5]
+resource_name = "fade_to_black"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TransitionScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -30,7 +45,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0.133333, 0.211765, 1 )
@@ -145,7 +160,7 @@ margin_bottom = 274.0
 custom_fonts/font = SubResource( 3 )
 text = "3D Modeler: E C
 Programmer: Metal Gear Depressed
-Composer: Mrelefterios
+Composer: Elefterios
 Artist: Keroboy
 Programmer: SmallMistake
 Sound Effects Engineer: Multi"
@@ -172,6 +187,20 @@ text = "Return"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TransitionScreen" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 0.840912
+margin_bottom = 0.840912
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fade_to_black = SubResource( 5 )
 
 [connection signal="mouse_entered" from="MainScreen/PlayGameButton" to="." method="onHover"]
 [connection signal="pressed" from="MainScreen/PlayGameButton" to="." method="changeScene" binds= [ "Test" ]]
