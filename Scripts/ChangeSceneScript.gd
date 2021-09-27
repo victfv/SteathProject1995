@@ -4,6 +4,8 @@ onready var selectAudio = load("res://SFX/interface-select.mp3")
 
 func changeScene(sceneName):
 	playAudio(selectAudio)
+	$AnimationPlayer.play("fade_to_black")
+	yield(get_tree().create_timer(1), "timeout")
 	if(sceneName=="Test"):
 		get_tree().change_scene("res://Levels/Test/TestLevel.tscn")
 
