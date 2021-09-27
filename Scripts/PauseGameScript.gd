@@ -33,6 +33,14 @@ func goToMainMenu():
 	playAudio(selectAudio)
 	get_tree().change_scene("res://Menus/MainMenu.tscn")
 
+func returnToMainPauseMenu():
+	$Controls.visible = false
+	$Main.visible = true
+	
+func openControlsMenu():
+	$Controls.visible = true
+	$Main.visible = false
+
 func quit():
 	get_tree().quit()
 	

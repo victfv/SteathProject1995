@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://UI/buttonBorderStyle.tres" type="StyleBox" id=1]
+[ext_resource path="res://UI/buttonNormalStyle.tres" type="StyleBox" id=2]
+[ext_resource path="res://Fonts/PauseMenuFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scripts/GameOverMenu.gd" type="Script" id=4]
+[ext_resource path="res://Fonts/000webfont.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 100
+font_data = ExtResource( 5 )
+
+[node name="GameOverMenu" type="Control"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+levelRestartPath = "res://Levels/Test/TestGuardScene.tscn"
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -191.5
+margin_top = 40.0
+margin_right = 191.5
+margin_bottom = 126.0
+custom_fonts/font = SubResource( 1 )
+text = "Game Over"
+
+[node name="RestartButton" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -27.0
+margin_right = 90.0
+margin_bottom = 27.0
+custom_styles/hover = ExtResource( 1 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 1 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
+text = "Restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenuButton" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -136.0
+margin_top = -178.0
+margin_right = 136.0
+margin_bottom = -124.0
+custom_styles/hover = ExtResource( 1 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 1 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
+text = "Quit to Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="mouse_entered" from="RestartButton" to="." method="onHover"]
+[connection signal="pressed" from="RestartButton" to="." method="restart"]
+[connection signal="mouse_entered" from="MainMenuButton" to="." method="onHover"]
+[connection signal="pressed" from="MainMenuButton" to="." method="goToMainMenu"]

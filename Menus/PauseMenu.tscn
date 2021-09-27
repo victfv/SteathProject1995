@@ -7,7 +7,7 @@
 [ext_resource path="res://UI/buttonBorderStyle.tres" type="StyleBox" id=5]
 
 [sub_resource type="DynamicFont" id=1]
-size = 140
+size = 100
 font_data = ExtResource( 3 )
 
 [node name="PauseMenu" type="Control"]
@@ -23,81 +23,252 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.894118 )
+color = Color( 0, 0, 0, 0.937255 )
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="Main" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLabel" type="Label" parent="Main"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -152.5
-margin_top = 17.8381
-margin_right = 152.5
-margin_bottom = 138.838
+margin_left = -101.29
+margin_top = 17.8
+margin_right = 118.71
+margin_bottom = 103.8
 custom_fonts/font = SubResource( 1 )
 text = "Pause"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ResumeButton" type="Button" parent="."]
+[node name="ResumeButton" type="Button" parent="Main"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -89.0
+margin_top = 127.0
+margin_right = 89.0
+margin_bottom = 181.0
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 4 )
+custom_fonts/font = ExtResource( 1 )
+text = " Resume "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controls" type="Button" parent="Main"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -78.0
+margin_left = -113.0
 margin_top = -27.0
-margin_right = 78.0
+margin_right = 113.0
 margin_bottom = 27.0
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
 custom_fonts/font = ExtResource( 1 )
-text = "Resume"
+text = " Controls "
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ReturnToMenuButton" type="Button" parent="."]
+[node name="ReturnToMenuButton" type="Button" parent="Main"]
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -167.0
-margin_top = 43.0
-margin_right = 167.0
-margin_bottom = 97.0
+anchor_bottom = 1.0
+margin_left = -178.0
+margin_top = -181.0
+margin_right = 178.0
+margin_bottom = -127.0
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
 custom_fonts/font = ExtResource( 1 )
-text = "Return To Menu"
+text = " Return To Menu "
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="QuitButton" type="Button" parent="."]
+[node name="QuitButton" type="Button" parent="Main"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -47.0
-margin_top = 113.0
-margin_right = 47.0
-margin_bottom = 167.0
+margin_left = -58.0
+margin_top = 337.0
+margin_right = 58.0
+margin_bottom = 391.0
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
 custom_fonts/font = ExtResource( 1 )
-text = "Quit"
+text = " Quit "
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="mouse_entered" from="ResumeButton" to="." method="onHover"]
-[connection signal="pressed" from="ResumeButton" to="." method="resume"]
-[connection signal="mouse_entered" from="ReturnToMenuButton" to="." method="onHover"]
-[connection signal="pressed" from="ReturnToMenuButton" to="." method="goToMainMenu"]
-[connection signal="mouse_entered" from="QuitButton" to="." method="onHover"]
-[connection signal="pressed" from="QuitButton" to="." method="quit"]
+[node name="Controls" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ControlsTitle" type="Label" parent="Controls"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -176.0
+margin_right = 201.471
+margin_bottom = 86.0
+custom_fonts/font = SubResource( 1 )
+text = "Controls"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Movement" type="Label" parent="Controls"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -157.5
+margin_top = -142.413
+margin_right = 157.5
+margin_bottom = -94.4135
+custom_fonts/font = ExtResource( 1 )
+text = "Movement: WASD"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Jump" type="Label" parent="Controls"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -157.5
+margin_top = -102.414
+margin_right = 157.5
+margin_bottom = -54.4138
+custom_fonts/font = ExtResource( 1 )
+text = "Jump: Space"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Interact" type="Label" parent="Controls"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -157.5
+margin_top = -64.5557
+margin_right = 157.5
+margin_bottom = -16.5557
+custom_fonts/font = ExtResource( 1 )
+text = "Interact: F"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lean" type="Label" parent="Controls"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -157.5
+margin_top = -24.5557
+margin_right = 157.5
+margin_bottom = 23.4443
+custom_fonts/font = ExtResource( 1 )
+text = "LEAN: Q or E"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Crouch" type="Label" parent="Controls"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -157.5
+margin_top = 15.4443
+margin_right = 181.5
+margin_bottom = 63.4443
+custom_fonts/font = ExtResource( 1 )
+text = "Crouch: COntrol"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Journal" type="Label" parent="Controls"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -157.5
+margin_top = 55.4443
+margin_right = 181.5
+margin_bottom = 103.444
+custom_fonts/font = ExtResource( 1 )
+text = "Journal: J"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shoot" type="Label" parent="Controls"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -157.5
+margin_top = 95.4443
+margin_right = 219.5
+margin_bottom = 143.444
+custom_fonts/font = ExtResource( 1 )
+text = "Shoot: Left Mouse"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Controls"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -89.0
+margin_top = -65.5939
+margin_right = 89.0
+margin_bottom = -17.5939
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 4 )
+custom_fonts/font = ExtResource( 1 )
+text = " Return "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="mouse_entered" from="Main/ResumeButton" to="." method="onHover"]
+[connection signal="pressed" from="Main/ResumeButton" to="." method="resume"]
+[connection signal="mouse_entered" from="Main/Controls" to="." method="onHover"]
+[connection signal="pressed" from="Main/Controls" to="." method="openControlsMenu"]
+[connection signal="mouse_entered" from="Main/ReturnToMenuButton" to="." method="onHover"]
+[connection signal="pressed" from="Main/ReturnToMenuButton" to="." method="goToMainMenu"]
+[connection signal="mouse_entered" from="Main/QuitButton" to="." method="onHover"]
+[connection signal="pressed" from="Main/QuitButton" to="." method="quit"]
+[connection signal="mouse_entered" from="Controls/Button" to="." method="onHover"]
+[connection signal="pressed" from="Controls/Button" to="." method="returnToMainPauseMenu"]
