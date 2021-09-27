@@ -2,14 +2,9 @@ tool
 
 extends KinematicBody
 
-export var pushExtent = 1.0 setget updExt
 export var description = "Push"
 var beingPushed = false
 
-
-func updExt(a):
-	pushExtent = a
-	$InteractionArea.collisionExtents = Vector3(pushExtent,pushExtent,pushExtent)
 
 func _ready():
 	set_physics_process(false)

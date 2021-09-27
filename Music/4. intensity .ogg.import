@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/4. intensity .ogg-49cca96ba57080f22b149d5d1fbf691a.oggstr"
+
+[deps]
+
+source_file="res://Music/4. intensity .ogg"
+dest_files=[ "res://.import/4. intensity .ogg-49cca96ba57080f22b149d5d1fbf691a.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

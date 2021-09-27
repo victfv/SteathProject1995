@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/elevatorBox.obj-da99bff365003401a40532dd2b397d65.mesh"
+
+[deps]
+
+files=[ "res://.import/elevatorBox.obj-da99bff365003401a40532dd2b397d65.mesh" ]
+
+source_file="res://Meshes/Environment/elevatorBox.obj"
+dest_files=[ "res://.import/elevatorBox.obj-da99bff365003401a40532dd2b397d65.mesh", "res://.import/elevatorBox.obj-da99bff365003401a40532dd2b397d65.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

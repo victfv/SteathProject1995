@@ -55,6 +55,7 @@ func _physics_process(delta):
 				var dist = $CamY/CameraMesh/Vision.visibilityStrength
 				$Label.text = str(dist)
 				suspicionLevel = clamp(suspicionLevel + clamp(delta * 2 * MasterScript.player.visibilityLevel, 0.006, 0.015), 0, 1)
+				MasterScript.alertLevel = clamp(MasterScript.alertLevel + 0.2 * delta, 0, 1)
 				if !staticCamera:
 					$LookDummy.look_at(MasterScript.player.global_transform.origin, Vector3.UP)
 					$CamY.rotation.y = lerp_angle($CamY.rotation.y, clamp($LookDummy.rotation.y - PI * sign($LookDummy.rotation.y), -deg2rad(scoutAngle), deg2rad(scoutAngle)), delta * 6)

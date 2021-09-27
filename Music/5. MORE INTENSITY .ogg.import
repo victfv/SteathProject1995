@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/5. MORE INTENSITY .ogg-756da1afd951aaadc7c09f9c30735f2c.oggstr"
+
+[deps]
+
+source_file="res://Music/5. MORE INTENSITY .ogg"
+dest_files=[ "res://.import/5. MORE INTENSITY .ogg-756da1afd951aaadc7c09f9c30735f2c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

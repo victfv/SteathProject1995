@@ -180,7 +180,7 @@ func _physics_process(delta):
 	playerLight(delta)
 	interact()
 	
-	velocity = move_and_slide_with_snap(velocity, snapVector, Vector3.UP, false, 4, PI/4, false) # Sets velocity to the result of move and slide with snap
+	velocity = move_and_slide_with_snap(velocity, snapVector, Vector3.UP, false, 4, PI/3.5, false) # Sets velocity to the result of move and slide with snap
 	#snapVector = Vector3.DOWN
 	snapVector = -get_floor_normal() # Sets the floor snap vector to negative of the floor normal
 

@@ -1,0 +1,103 @@
+{
+	"connections": [
+		{
+			"from": "noise_anisotropic",
+			"from_port": 0,
+			"to": "colorize",
+			"to_port": 0
+		},
+		{
+			"from": "colorize",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 0
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "@@1724",
+	"node_position": {
+		"x": 0,
+		"y": 0
+	},
+	"nodes": [
+		{
+			"export_paths": {
+				"Godot": "C:/Users/victf/Documents/GitHub/SteathProject1995/Materials/Steel/Steel"
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 0,
+				"y": 0
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1,
+					"b": 1,
+					"g": 1,
+					"r": 1,
+					"type": "Color"
+				},
+				"ao": 1,
+				"depth_scale": 0.5,
+				"emission_energy": 1,
+				"flags_transparent": false,
+				"metallic": 0,
+				"normal": 1,
+				"roughness": 1,
+				"size": 7,
+				"sss": 0
+			},
+			"type": "material"
+		},
+		{
+			"name": "noise_anisotropic",
+			"node_position": {
+				"x": -502.752411,
+				"y": 74.737396
+			},
+			"parameters": {
+				"interpolation": 1,
+				"scale_x": 3,
+				"scale_y": 256,
+				"smoothness": 1
+			},
+			"type": "noise_anisotropic"
+		},
+		{
+			"name": "colorize",
+			"node_position": {
+				"x": -275.057434,
+				"y": -24.59259
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0.628906,
+							"g": 0.628906,
+							"pos": 0,
+							"r": 0.628906
+						},
+						{
+							"a": 1,
+							"b": 0.722656,
+							"g": 0.722656,
+							"pos": 1,
+							"r": 0.722656
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"type": "colorize"
+		}
+	],
+	"parameters": {
+
+	},
+	"shortdesc": "",
+	"type": "graph"
+}
