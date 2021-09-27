@@ -7,3 +7,6 @@ var alertLevel = 0
 
 func _process(delta):
 	alertLevel = clamp(alertLevel - 0.05 * delta, 0, 1)
+
+func gameOver():
+	alertLevel = 0

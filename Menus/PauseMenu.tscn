@@ -7,7 +7,7 @@
 [ext_resource path="res://UI/buttonBorderStyle.tres" type="StyleBox" id=5]
 
 [sub_resource type="DynamicFont" id=1]
-size = 100
+size = 140
 font_data = ExtResource( 3 )
 
 [node name="PauseMenu" type="Control"]
@@ -52,11 +52,11 @@ margin_left = -89.0
 margin_top = 127.0
 margin_right = 89.0
 margin_bottom = 181.0
+custom_fonts/font = ExtResource( 1 )
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = ExtResource( 1 )
 text = " Resume "
 __meta__ = {
 "_edit_use_anchors_": false
@@ -71,11 +71,11 @@ margin_left = -113.0
 margin_top = -27.0
 margin_right = 113.0
 margin_bottom = 27.0
+custom_fonts/font = ExtResource( 1 )
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = ExtResource( 1 )
 text = " Controls "
 __meta__ = {
 "_edit_use_anchors_": false
@@ -90,11 +90,11 @@ margin_left = -178.0
 margin_top = -181.0
 margin_right = 178.0
 margin_bottom = -127.0
+custom_fonts/font = ExtResource( 1 )
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = ExtResource( 1 )
 text = " Return To Menu "
 __meta__ = {
 "_edit_use_anchors_": false
@@ -107,11 +107,11 @@ margin_left = -58.0
 margin_top = 337.0
 margin_right = 58.0
 margin_bottom = 391.0
+custom_fonts/font = ExtResource( 1 )
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = ExtResource( 1 )
 text = " Quit "
 __meta__ = {
 "_edit_use_anchors_": false
@@ -252,11 +252,11 @@ margin_left = -89.0
 margin_top = -65.5939
 margin_right = 89.0
 margin_bottom = -17.5939
+custom_fonts/font = ExtResource( 1 )
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = ExtResource( 1 )
 text = " Return "
 __meta__ = {
 "_edit_use_anchors_": false

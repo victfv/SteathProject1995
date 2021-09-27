@@ -27,3 +27,9 @@ func playAudio(audioClip):
 	
 func onHover():
 	playAudio(hoverAudio)
+
+
+func _process(delta):
+	if MasterScript.alertLevel > 0.99:
+		startGameOver()
+		MasterScript.gameOver()
