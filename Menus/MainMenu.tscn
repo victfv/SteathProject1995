@@ -7,19 +7,19 @@
 [ext_resource path="res://UI/buttonBorderStyle.tres" type="StyleBox" id=5]
 [ext_resource path="res://Textures/BG.png" type="Texture" id=6]
 
-[sub_resource type="DynamicFont" id=2]
-size = 50
+[sub_resource type="DynamicFont" id=1]
+size = 38
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 35
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 50
 font_data = ExtResource( 2 )
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "fade_to_black"
 tracks/0/type = "value"
 tracks/0/path = NodePath("TransitionScreen:color")
@@ -65,16 +65,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -160.0
-margin_right = 184.0
-margin_bottom = -110.0
-custom_fonts/font = SubResource( 2 )
+margin_left = 16.654
+margin_top = -177.0
+margin_right = 136.654
+margin_bottom = -117.0
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
-text = "Play Game"
+custom_fonts/font = SubResource( 1 )
+text = " Play "
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -84,16 +84,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -90.0
-margin_right = 184.0
-margin_bottom = -40.0
-custom_fonts/font = SubResource( 2 )
+margin_left = 16.859
+margin_top = -94.0
+margin_right = 136.859
+margin_bottom = -34.0
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
-text = "About"
+custom_fonts/font = SubResource( 1 )
+text = " About "
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -103,21 +103,22 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 184.0
-margin_bottom = 30.0
-custom_fonts/font = SubResource( 2 )
+margin_left = 16.859
+margin_top = -10.0
+margin_right = 136.859
+margin_bottom = 50.0
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
-text = "Quit Game"
+custom_fonts/font = SubResource( 1 )
+text = " Quit "
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AboutScreen" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -152,7 +153,7 @@ margin_left = -242.0
 margin_top = 66.0
 margin_right = 242.0
 margin_bottom = 274.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "3D Modeler: Elijah Carvalho
 Programmer: Metal Gear Depression
 Composer: Eleftherios
@@ -173,11 +174,11 @@ margin_left = -72.0
 margin_top = 116.0
 margin_right = 72.0
 margin_bottom = 166.0
-custom_fonts/font = SubResource( 4 )
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Return"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -186,8 +187,10 @@ __meta__ = {
 [node name="TransitionScreen" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 0.840912
-margin_bottom = 0.840912
+margin_left = -0.707123
+margin_top = -1.9875
+margin_right = -0.707123
+margin_bottom = -1.98749
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 __meta__ = {
@@ -195,7 +198,7 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fade_to_black = SubResource( 5 )
+anims/fade_to_black = SubResource( 4 )
 
 [connection signal="mouse_entered" from="MainScreen/PlayGameButton" to="." method="onHover"]
 [connection signal="pressed" from="MainScreen/PlayGameButton" to="." method="changeScene" binds= [ "Test" ]]
