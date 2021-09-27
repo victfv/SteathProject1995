@@ -67,10 +67,10 @@ func tranqulize():
 	if(movementState!=2):
 		#yield(get_tree().create_timer(timeTillDoze), "timeout")
 		movementState = 2
-		$AudioStreamPlayer3D.stop()
+		$AudioStreamPlayer3D.pauseLoop()
 		$TranqPlayer.play()
 		yield(get_tree().create_timer(lengthOfDoze), "timeout")
-		$AudioStreamPlayer3D.play()
+		$AudioStreamPlayer3D.playLoop()
 		movementState = 1
 		resetPath()
 

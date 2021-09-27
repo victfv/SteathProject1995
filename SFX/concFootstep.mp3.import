@@ -11,5 +11,5 @@ dest_files=[ "res://.import/concFootstep.mp3-16e72c0f1b4329167229ace1ad09c512.mp
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

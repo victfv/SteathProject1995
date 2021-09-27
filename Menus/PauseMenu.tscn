@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Fonts/PauseMenuFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scripts/PauseGameScript.gd" type="Script" id=2]
 [ext_resource path="res://Fonts/000webfont.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://UI/buttonNormalStyle.tres" type="StyleBox" id=4]
+[ext_resource path="res://UI/buttonBorderStyle.tres" type="StyleBox" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 140
@@ -32,6 +34,9 @@ margin_right = 152.5
 margin_bottom = 138.838
 custom_fonts/font = SubResource( 1 )
 text = "Pause"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ResumeButton" type="Button" parent="."]
 anchor_left = 0.5
@@ -42,6 +47,10 @@ margin_left = -78.0
 margin_top = -27.0
 margin_right = 78.0
 margin_bottom = 27.0
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 4 )
 custom_fonts/font = ExtResource( 1 )
 text = "Resume"
 __meta__ = {
@@ -57,6 +66,10 @@ margin_left = -167.0
 margin_top = 43.0
 margin_right = 167.0
 margin_bottom = 97.0
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 4 )
 custom_fonts/font = ExtResource( 1 )
 text = "Return To Menu"
 __meta__ = {
@@ -72,12 +85,19 @@ margin_left = -47.0
 margin_top = 113.0
 margin_right = 47.0
 margin_bottom = 167.0
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 4 )
 custom_fonts/font = ExtResource( 1 )
 text = "Quit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="mouse_entered" from="ResumeButton" to="." method="onHover"]
 [connection signal="pressed" from="ResumeButton" to="." method="resume"]
+[connection signal="mouse_entered" from="ReturnToMenuButton" to="." method="onHover"]
 [connection signal="pressed" from="ReturnToMenuButton" to="." method="goToMainMenu"]
+[connection signal="mouse_entered" from="QuitButton" to="." method="onHover"]
 [connection signal="pressed" from="QuitButton" to="." method="quit"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/interface-select.mp3-dc3c65644b880e30ebeb20029d418d67.mp3str"
+
+[deps]
+
+source_file="res://SFX/interface-select.mp3"
+dest_files=[ "res://.import/interface-select.mp3-dc3c65644b880e30ebeb20029d418d67.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
